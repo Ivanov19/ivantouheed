@@ -3,11 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Why I started this site — Rumana Khan</title>
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>Why I started this site — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#7a1f1f">
   <style>
-    /* ===== Warm theme — change colors here ===== */
+    /* ===== Warm theme + teal accent ===== */
     :root {
       --bg:#faf8f3; --ink:#2b2b2b; --muted:#8a857c; --link:#b5651d; --rule:#e7e2d8;
+      --accent:#7a1f1f; --accent-soft:#f0e3e3;
+      --teal:#14706a; --teal-soft:#e1f0ee;
     }
     * { box-sizing:border-box; }
     body {
@@ -15,44 +26,78 @@
       background: var(--bg); color: var(--ink); line-height: 1.7;
       max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
     }
-    nav { display:flex; gap:20px; margin-bottom:40px; font-size:15px; }
-    nav a { color: var(--muted); text-decoration:none; }
-    nav a:hover, nav a.active { color: var(--ink); }
+
+    /* ===== Top navigation ===== */
+    nav {
+      display:flex; gap:6px; margin-bottom:44px;
+      padding-bottom:14px; border-bottom:2px solid var(--accent);
+    }
+    nav a {
+      color: var(--accent); text-decoration:none;
+      font-size:18px; font-weight:600; letter-spacing:0.01em;
+      padding:8px 16px; border-radius:8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { background: var(--accent-soft); }
+    nav a.active { background: var(--accent); color:#fff; }
+
     h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
-    .tag { color: var(--muted); margin:0 0 22px; }
-    img.photo { width:120px; height:120px; object-fit:cover; border-radius:50%; margin:10px 0 18px; }
-    a { color: var(--link); }
-    .links a { margin-right:14px; font-size:14px; text-decoration:none; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
     hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
-    h3 { font-size:15px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin:30px 0 14px; }
-    .news p { margin:0 0 16px; }
-    .date { color:var(--ink); font-weight:600; }
-    ul { padding-left:18px; } li { margin-bottom:10px; }
     .muted { color:var(--muted); font-size:14px; }
     .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
     .post p { margin:0 0 18px; }
-    .back { font-size:14px; text-decoration:none; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Footer ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
   </style>
 </head>
 <body class="post">
 
+  <!-- ===== Top nav (same on every page) ===== -->
   <nav>
-    <a href="../index.html">about</a>
-    <a href="../experience.html">experience</a>
-    <a href="../assets/CV.pdf">cv</a>
-    <a href="../blog.html">blog</a>
+    <a href="../index.html">About</a>
+    <a href="../experience.html">Experience</a>
+    <a href="../assets/CV.pdf">CV</a>
+    <a class="active" href="../blog.html">Blog</a>
   </nav>
 
+  <!-- ▼▼ EDIT 2 of 3 — post heading + date ▼▼ -->
   <h1>Why I started this site</h1>
   <p class="meta">Jun 2026</p>
+  <!-- ▲▲ ------------------------------------ ▲▲ -->
 
+  <!-- ▼▼ EDIT 3 of 3 — post body (add as many <p> as you like) ▼▼ -->
   <p>I kept losing track of the little projects I worked on, so I made this page to
   write them down. Nothing fancy — just a place to think out loud.</p>
 
   <p>If you're a student reading this: a personal site is easier to make than it
   looks. This whole thing is a few HTML files. That's it.</p>
+  <!-- ▲▲ ------------------------------------------------------------ ▲▲ -->
 
   <p><a class="back" href="../blog.html">← back to blog</a></p>
+
+  <!-- ===== Footer (same on every page) ===== -->
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="mailto:ivan19tauhid@gmail.com">Email</a>
+      <a href="https://github.com/Ivanov19">GitHub</a>
+      <a href="https://www.facebook.com/ivan.tawhid.5">Facebook</a>
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
 
 </body>
 </html>
