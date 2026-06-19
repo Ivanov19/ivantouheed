@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — Rumana Khan</title>
+  <style>
+    /* ===== Warm theme — change colors here ===== */
+    :root {
+      --bg:#faf8f3; --ink:#2b2b2b; --muted:#8a857c; --link:#b5651d; --rule:#e7e2d8;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+    nav { display:flex; gap:20px; margin-bottom:40px; font-size:15px; }
+    nav a { color: var(--muted); text-decoration:none; }
+    nav a:hover, nav a.active { color: var(--ink); }
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    .tag { color: var(--muted); margin:0 0 22px; }
+    img.photo { width:120px; height:120px; object-fit:cover; border-radius:50%; margin:10px 0 18px; }
+    a { color: var(--link); }
+    .links a { margin-right:14px; font-size:14px; text-decoration:none; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    h3 { font-size:15px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin:30px 0 14px; }
+    .news p { margin:0 0 16px; }
+    .date { color:var(--ink); font-weight:600; }
+    ul { padding-left:18px; } li { margin-bottom:10px; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; text-decoration:none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">about</a>
+    <a href="experience.html">experience</a>
+    <a href="assets/CV.pdf">cv</a>
+    <a class="active" href="blog.html">blog</a>
+  </nav>
+
+  <h1>Blog</h1>
+  <p class="muted">small notes, mostly to myself.</p>
+
+  <!-- ===== One <li> per post. Newest on top. ===== -->
+  <ul>
+    <li><a href="posts/first-post.html">Why I started this site</a> <span class="muted">— Jun 2026</span></li>
+  </ul>
+
+</body>
+</html>
