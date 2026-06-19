@@ -32,6 +32,19 @@
     .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
     .post p { margin:0 0 18px; }
     .back { font-size:14px; text-decoration:none; }
+    /* ===== Footer ===== */
+    footer {
+      margin-top:60px; padding-top:22px;
+      border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a {
+      color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600;
+    }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
   </style>
 </head>
 <body>
@@ -64,6 +77,14 @@
     <li>Junior Member, Robotics Club</li>
     <li>Volunteer, Annual Science Fair 2025</li>
   </ul>
-
+<!-- ===== Footer (same on every page) ===== -->
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="mailto:you@example.com">Email</a>
+      <a href="https://github.com/Ivanov19">GitHub</a>
+      <a href="https://scholar.google.com/">Scholar</a>
+    </span>
+  </footer>
 </body>
 </html>
