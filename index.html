@@ -20,12 +20,12 @@
     body {
       font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
       background: var(--bg); color: var(--ink); line-height: 1.7;
-      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+      max-width: 880px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
     }
 
     /* ===== Top navigation ===== */
     nav {
-      display:flex; gap:6px; margin-bottom:44px;
+      display:flex; gap:6px; margin-bottom:40px;
       padding-bottom:14px; border-bottom:2px solid var(--accent);
     }
     nav a {
@@ -37,24 +37,19 @@
     nav a:hover { background: var(--accent-soft); }
     nav a.active { background: var(--accent); color:#fff; }
 
+    /* ===== Two-column layout: main + updates rail ===== */
+    .layout { display:grid; grid-template-columns: 1fr 250px; gap:40px; align-items:start; }
+
     h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
     .tag { color: var(--muted); margin:0 0 22px; }
-    img.photo { width:250px; height:333px; object-fit:cover; border-radius:12px; margin:10px 0 6px; }
+    img.photo { width:250px; height:333px; object-fit:cover; border-radius:12px; margin:6px 0 6px; }
     .photo-loc { font-size:13px; color:var(--teal); margin:0 0 18px; }
     a { color: inherit; text-decoration: none; font-style: italic; }
     nav a, footer a, .seemore { font-style: normal; }
     .links a { margin-right:14px; font-size:14px; }
-    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
-    h3 { font-size:15px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin:30px 0 14px; }
-    .news p { margin:0 0 16px; }
-    .date { color:var(--ink); font-weight:600; }
-    ul { padding-left:18px; } li { margin-bottom:10px; }
     .muted { color:var(--muted); font-size:14px; }
-    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
-    .post p { margin:0 0 18px; }
-    .back { font-size:14px; text-decoration:none; }
 
-    /* ===== See more / Show less toggle (teal accent) ===== */
+    /* ===== See more / Show less toggle (intro) ===== */
     #more { display:none; }
     #more.open { display:block; }
     .seemore {
@@ -66,9 +61,36 @@
     .seemore .chev { transition:transform 0.15s ease; }
     .seemore.open .chev { transform:rotate(180deg); }
 
+    /* ===== Updates rail ===== */
+    .rail {
+      background:#fff; border:1px solid #efe9dd; border-radius:12px;
+      padding:18px 20px; position:sticky; top:24px;
+    }
+    .rail h3 {
+      font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+      color:var(--muted); margin:0 0 14px;
+    }
+    .rail .u { font-size:14px; line-height:1.55; margin-bottom:13px; }
+    .rail .u:last-child { margin-bottom:0; }
+    .rail .date { color:var(--teal); font-weight:600; }
+    #older { display:none; }
+    #older.open { display:block; }
+    .rail .seemore { font-size:13px; margin-top:6px; }
+
+    /* ===== Visitor map ===== */
+    .visitor-map {
+      margin-top:30px; padding-top:22px;
+      border-top:1px solid var(--rule);
+    }
+    .vm-label {
+      font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+      color:var(--muted); margin-bottom:12px;
+    }
+    .visitor-map img { max-width:100%; border-radius:8px; }
+
     /* ===== Footer ===== */
     footer {
-      margin-top:60px; padding-top:22px;
+      margin-top:50px; padding-top:22px;
       border-top:1px solid var(--rule);
       font-size:14px; color:var(--muted);
       display:flex; flex-wrap:wrap; gap:8px 18px;
@@ -79,6 +101,12 @@
     }
     footer .social a:first-child { margin-left:0; }
     footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Mobile: stack, rail flows below content ===== */
+    @media (max-width:720px) {
+      .layout { grid-template-columns:1fr; gap:28px; }
+      .rail { position:static; }
+    }
   </style>
 </head>
 <body>
@@ -91,43 +119,68 @@
     <a href="blog.html">Blog</a>
   </nav>
 
-  <!-- ===== Photo: put your square photo at images/me.jpg ===== -->
-  <img class="photo" src="images/me.jpg"
-       onerror="this.src='https://placehold.co/240x240/eee/999?text=:)'" alt="Tahsin Touheed Ivan">
-  <p class="photo-loc">📍 Jolshiri Park, 300 feet, Dhaka</p>
+  <div class="layout">
 
+    <!-- ===== Main column ===== -->
+    <main>
+      <!-- ===== Photo: put your photo at images/me.jpg ===== -->
+      <img class="photo" src="images/me.jpg"
+           onerror="this.src='https://placehold.co/240x240/eee/999?text=:)'" alt="Tahsin Touheed Ivan">
+      <p class="photo-loc">📍 Jolshiri Park, 300 feet, Dhaka</p>
 
-  <!-- ===== Name + tagline ===== -->
-  <h1>Tahsin Touheed Ivan</h1>
-  <p class="tag">learner . researcher . educator</p>
+      <!-- ===== Name + tagline ===== -->
+      <h1>Tahsin Touheed Ivan</h1>
+      <p class="tag">EEE . DU</p>
 
-  <!-- ===== Intro ===== -->
-  <p>Hello, Ivan here!</p>
-  <p>I am a final-year undergraduate student in <a href="https://du.ac.bd/body/EEE">Dept. of Electrical &amp; Electronic Engineering (EEE) at the University of Dhaka</a>, Dhaka. My research interests lie at the intersection of materials science and artificial
-    intelligence — specifically, leveraging machine learning to accelerate the discovery and design of nanomaterials for energy storage and electronic &amp; photonic device applications.</p>
+      <!-- ===== Intro ===== -->
+      <p>Hello, Ivan here!</p>
+      <p>I am a final-year undergraduate student in <a href="https://du.ac.bd/body/EEE">Dept. of Electrical &amp; Electronic Engineering (EEE) at the University of Dhaka</a>, Dhaka. My research interests lie at the intersection of materials science and artificial
+        intelligence — specifically, leveraging machine learning to accelerate the discovery and design of nanomaterials for energy storage and electronic &amp; photonic device applications.</p>
 
-  <!-- ===== Hidden extra writing ===== -->
-  <div id="more">
-    <p>I am currently working with <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Professor Dr. Imtiaz Ahmed</a>, as one of the core members of our <a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Lab at University of Dhaka</a>.
-I completed my higher secondary education at <a href="https://ndc.edu.bd/">Notre Dame College, Dhaka</a> — an institution I am proud to be a part of. Since then, I have worked on a range of embedded systems and hardware projects,
-    including co-developing FabLab DU's first departmental drone — a low-cost ESP32-based quadcopter, and a few ESP32-based hobby devices.</p>
-    <p>My passions lie in reading and writing — Dostoevsky, Murakami, and Humayun Ahmed are permanent favourites. I also deeply enjoy cinema; I love watching, analysing, and obsessing over films,
-    with Satyajit Ray and Christopher Nolan as my all-time favourite directors. And I love to eat — which, as you can imagine, makes weight loss quite the ongoing struggle.
-    Feel free to check out my <a href="blog.html">blog</a> if you'd like to read some of my writings!</p>
-  </div>
+      <!-- ===== Hidden extra writing ===== -->
+      <div id="more">
+        <p>I am currently working with <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Professor Dr. Imtiaz Ahmed</a>, as one of the core members of our <a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Lab at University of Dhaka</a>.
+    I completed my higher secondary education at <a href="https://ndc.edu.bd/">Notre Dame College, Dhaka</a> — an institution I am proud to be a part of. Since then, I have worked on a range of embedded systems and hardware projects,
+        including co-developing FabLab DU's first departmental drone — a low-cost ESP32-based quadcopter, and a few ESP32-based hobby devices.</p>
+        <p>My passions lie in reading and writing — Dostoevsky, Murakami, and Humayun Ahmed are permanent favourites. I also deeply enjoy cinema; I love watching, analysing, and obsessing over films,
+        with Satyajit Ray and Christopher Nolan as my all-time favourite directors. And I love to eat — which, as you can imagine, makes weight loss quite the ongoing struggle.
+        Feel free to check out my <a href="blog.html">blog</a> if you'd like to read some of my writings!</p>
+      </div>
 
-  <!-- ===== Toggle button ===== -->
-  <button class="seemore" id="toggle" onclick="toggleMore()">
-    <span id="toggle-label">See more</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </button>
+      <!-- ===== Toggle button ===== -->
+      <button class="seemore" id="toggle" onclick="toggleMore()">
+        <span id="toggle-label">See more</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
 
-  <hr>
+      <!-- ===== Visitor map ===== -->
+      <div class="visitor-map">
+        <div class="vm-label">Where my visitors are</div>
+        <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=mHJjURGaKSk-qxc81PhW3l6UikCHcrDESb4MrXHDOZQ&cl=ffffff&w=a"></script>
+      </div>
+    </main>
 
-  <!-- ===== Updates: newest on top ===== -->
-  <h3>Updates</h3>
-  <div class="news">
-    <p><span class="date">Jun 2026</span> — Yet to arrive. <a href="blog.html">[read]</a></p>
+    <!-- ===== Updates rail (newest on top) ===== -->
+    <aside class="rail">
+      <h3>News &amp; Updates</h3>
+
+      <!-- Recent: show 3–4 here -->
+      <div class="u"><span class="date">Jun 2026</span> — Wrote my first blog post. <a href="blog.html">[read]</a></div>
+      <div class="u"><span class="date">Apr 2026</span> — Became Chair of IEEE SIGHT Student Branch, DU.</div>
+      <div class="u"><span class="date">Jan 2026</span> — Joined the Materials Science Research Lab (MSRL DU) as an undergraduate researcher.</div>
+
+      <!-- Older: hidden until "See older" -->
+      <div id="older">
+        <div class="u"><span class="date">Feb 2025</span> — Joined IEEE SIGHT as Program Coordinator.</div>
+        <div class="u"><span class="date">Jan 2024</span> — Became Vice President of the Optics &amp; Photonics Club.</div>
+      </div>
+
+      <button class="seemore" id="older-toggle" onclick="toggleOlder()">
+        <span id="older-label">See older</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+    </aside>
+
   </div>
 
   <!-- ===== Footer (same on every page) ===== -->
@@ -149,6 +202,14 @@ I completed my higher secondary education at <a href="https://ndc.edu.bd/">Notre
       var open = more.classList.toggle('open');
       btn.classList.toggle('open', open);
       label.textContent = open ? 'Show less' : 'See more';
+    }
+    function toggleOlder() {
+      var older = document.getElementById('older');
+      var btn = document.getElementById('older-toggle');
+      var label = document.getElementById('older-label');
+      var open = older.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      label.textContent = open ? 'Show less' : 'See older';
     }
   </script>
 
