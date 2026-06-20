@@ -10,7 +10,7 @@
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#7a1f1f">
   <style>
-    /* ===== Warm theme + teal accent ===== */
+    /* ===== Warm theme — change colors here ===== */
     :root {
       --bg:#f5f6f7; --ink:#2b2b2b; --muted:#8a857c; --link:#b5651d; --rule:#e3e5e8;
       --accent:#7a1f1f; --accent-soft:#f0e3e3;
@@ -20,12 +20,12 @@
     body {
       font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
       background: var(--bg); color: var(--ink); line-height: 1.7;
-      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+      max-width: 880px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
     }
 
     /* ===== Top navigation ===== */
     nav {
-      display:flex; gap:6px; margin-bottom:44px;
+      display:flex; gap:6px; margin-bottom:40px;
       padding-bottom:14px; border-bottom:2px solid var(--accent);
     }
     nav a {
@@ -38,37 +38,46 @@
     nav a.active { color: var(--teal); background:none; }
     nav a.active::before { content:">> "; }
 
-    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
     a { color: inherit; text-decoration: none; font-style: italic; }
-    nav a, footer a { font-style: normal; }
-    h3 { font-size:15px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin:34px 0 16px; }
-    .muted { color:var(--muted); font-size:14px; }
+    nav a, footer a, .seemore { font-style: normal; }
 
-    /* ===== Education / simple milestones ===== */
-    .edu { margin:0 0 14px; }
-    .edu .school { font-weight:600; }
-    .edu .detail { color:var(--muted); font-size:14px; }
-
-    /* ===== Org block (LinkedIn-style, teal accent bar) ===== */
-    .org {
-      border-left:3px solid var(--teal);
-      padding-left:16px; margin:0 0 22px;
+    /* ===== Section headings ===== */
+    .sec { margin-top:34px; }
+    .sec > h2 {
+      font-size:13px; text-transform:uppercase; letter-spacing:0.09em;
+      color:var(--accent); margin:0 0 16px; padding-bottom:7px;
+      border-bottom:1px solid var(--accent-soft); font-weight:700;
     }
-    .org .name { font-weight:600; }
-    .org .sub  { color:var(--muted); font-size:14px; margin-bottom:6px; }
-    .role { display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-top:6px; }
-    .role .rtitle { font-weight:500; }
-    .role .rtitle .now { color:var(--teal); font-weight:600; }
-    .role .rdate { color:var(--muted); font-size:13px; white-space:nowrap; }
 
-    /* ===== Projects (tight one-liners) ===== */
-    .proj { margin:0 0 12px; }
-    .proj .pname { font-size:13px; font-weight:400; }
-    .proj .pmeta { color:var(--muted); font-size:14px; }
+    /* ===== Entry (role / org) ===== */
+    .entry { margin-bottom:20px; }
+    .entry:last-child { margin-bottom:0; }
+    .entry .top {
+      display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+    }
+    .entry .org { font-weight:600; color:var(--accent); font-size:16px; }
+    .entry .when { color:var(--teal); font-size:13px; font-weight:600; white-space:nowrap; }
+    .entry .role { color:var(--muted); font-size:14px; font-style:italic; margin:1px 0 0; }
+    .entry p { margin:7px 0 0; font-size:15px; line-height:1.62; }
+    .entry .meta { font-size:13px; color:var(--muted); margin-top:3px; }
+
+    /* compact rows for education / leadership */
+    .line {
+      display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+      padding:7px 0; border-bottom:1px dashed var(--rule);
+    }
+    .line:last-child { border-bottom:none; }
+    .line .l-main { font-size:15px; }
+    .line .l-main b { color:var(--accent); font-weight:600; }
+    .line .l-sub { color:var(--muted); font-style:italic; }
+    .line .l-when { color:var(--teal); font-size:13px; font-weight:600; white-space:nowrap; }
+
+    .seemore-link { font-size:13px; color:var(--teal); font-weight:600; font-style:normal; }
+    .seemore-link:hover { text-decoration:underline; }
 
     /* ===== Footer ===== */
     footer {
-      margin-top:60px; padding-top:22px;
+      margin-top:50px; padding-top:22px;
       border-top:1px solid var(--rule);
       font-size:14px; color:var(--muted);
       display:flex; flex-wrap:wrap; gap:8px 18px;
@@ -77,6 +86,12 @@
     footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
     footer .social a:first-child { margin-left:0; }
     footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Mobile ===== */
+    @media (max-width:720px) {
+      .entry .top, .line { flex-direction:column; gap:1px; }
+      .entry .when, .line .l-when { white-space:normal; }
+    }
   </style>
 </head>
 <body>
@@ -89,94 +104,123 @@
     <a href="blog.html">Blog</a>
   </nav>
 
-  <h1>Experience</h1>
+  <main>
 
-  <!-- ===== EDUCATION ===== -->
-  <h3>Education</h3>
-  <div class="edu">
-    <div class="school">University of Dhaka</div>
-    <div class="detail">B.Sc. in Electrical &amp; Electronic Engineering · Sept 2022 – Dec 2026 (expected)</div>
-  </div>
-  <div class="edu">
-    <div class="school">Notre Dame College</div>
-    <div class="detail">Higher Secondary Certificate (Science) · 2019 – 2021</div>
-  </div>
-  <div class="edu">
-    <div class="school">Ideal School &amp; College</div>
-    <div class="detail">Secondary School Certificate (Science)</div>
-  </div>
+      <!-- RESEARCH (centerpiece) -->
+      <section class="sec">
+        <h2>Research</h2>
+        <div class="entry">
+          <div class="top">
+            <span class="org"><a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Laboratory (MSRL DU)</a></span>
+            <span class="when">Jan 2026 – Present</span>
+          </div>
+          <p class="role">Undergraduate Researcher · Supervisor:
+            <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Dr. Imtiaz Ahmed</a></p>
+          <p><b>ML-guided design of porous-carbon &amp; metal-oxide electrodes for supercapacitors.</b>
+            I am building a structured literature dataset of porous-carbon electrodes and applying
+            machine learning to map structural properties — BET surface area, pore-size distribution,
+            and nitrogen/oxygen heteroatom content — to specific capacitance, screening for
+            high-performance material configurations.</p>
+          <p>Model-shortlisted candidates are then validated experimentally across the full pipeline:
+            precursor carbonization and chemical activation, structural characterization (BET, Raman, XPS),
+            and electrochemical testing (CV, GCD, EIS) — closing the loop between prediction and
+            physical behavior.</p>
+        </div>
+      </section>
 
-  <!-- ===== RESEARCH ===== -->
-  <h3>Research</h3>
-  <div class="org">
-    <div class="name">Materials Science Research Laboratory (MSRL DU)</div>
-    <div class="sub">Supervisor: Dr. Imtiaz Ahmed</div>
-    <div class="role">
-      <span class="rtitle">Undergraduate Researcher</span>
-      <span class="rdate">Jan 2026 – <span style="color:var(--teal);font-weight:600;">Present</span></span>
-    </div>
-    <div class="detail" style="margin-top:6px;">ML-guided design of porous-carbon &amp; metal-oxide electrodes for supercapacitors.</div>
-  </div>
+      <!-- SELECTED PROJECTS -->
+      <section class="sec">
+        <h2>Selected Projects</h2>
 
-  <!-- ===== LEADERSHIP / CLUBS ===== -->
-  <h3>Leadership &amp; Involvement</h3>
+        <div class="entry">
+          <div class="top">
+            <span class="org">smartDrip — IoT Drip Irrigation for Urban Rooftops</span>
+            <span class="when">2026 – Ongoing</span>
+          </div>
+          <p class="meta">Awarded IEEE HTB Tech4Good 2026 · USD 4,739</p>
+          <p>Leading an IEEE SIGHT SB DU team building an IoT-enabled drip irrigation system that makes
+            urban rooftop plantation water-efficient and low-maintenance — addressing freshwater stress
+            and food-resilience in dense cities. Currently directing system design, sensor–actuator
+            integration, and field-deployment planning.</p>
+        </div>
 
-  <div class="org">
-    <div class="name">IEEE SIGHT Student Branch, DU</div>
-    <div class="role">
-      <span class="rtitle">Chair <span class="now">· current</span></span>
-      <span class="rdate">Apr 2026 – Present</span>
-    </div>
-    <div class="role">
-      <span class="rtitle">Program Coordinator</span>
-      <span class="rdate">Feb 2025 – Mar 2026</span>
-    </div>
-  </div>
+        <div class="entry">
+          <div class="top">
+            <span class="org">FabLab DU Departmental Drone</span>
+            <span class="when">2024</span>
+          </div>
+          <p class="role">ESP32 Quadcopter · Supervisor:
+            <a href="https://www.du.ac.bd/body/faculty_details/EEE/1168">Dr. Md. Shafiul Alam</a></p>
+          <p>Co-developed the department's first drone — a ~USD 66 ESP32-based quadcopter — to test whether
+            commodity microcontrollers can replace STM32 commercial flight controllers. Covered the full
+            embedded stack: ESC/PWM communication, hand-tuned cascaded PID control, and diagnosing IMU
+            drift and vibration instability.</p>
+        </div>
 
-  <div class="org">
-    <div class="name">IEEE Photonics Society Student Branch, DU</div>
-    <div class="role">
-      <span class="rtitle">Event Coordinator</span>
-      <span class="rdate">Feb 2025 – Mar 2026</span>
-    </div>
-  </div>
+        <p style="margin-top:14px;"><a class="seemore-link" href="assets/CV.pdf">See all projects in CV →</a></p>
+      </section>
 
-  <div class="org">
-    <div class="name">Optics &amp; Photonics Club</div>
-    <div class="role">
-      <span class="rtitle">Vice President</span>
-      <span class="rdate">Jan 2024 – Apr 2025</span>
-    </div>
-  </div>
+      <!-- TEACHING & OUTREACH -->
+      <section class="sec">
+        <h2>Teaching &amp; Outreach</h2>
+        <div class="line">
+          <span class="l-main">Led a <b>Microcontrollers</b> hands-on session — IEEE Day Outreach, Cumilla</span>
+          <span class="l-when">50+ students</span>
+        </div>
+        <div class="line">
+          <span class="l-main">Coordinated the <b>Machine Learning Fundamentals</b> workshop</span>
+          <span class="l-when">2025</span>
+        </div>
+        <div class="line">
+          <span class="l-main">Delivered project talks (LFR, Holography) — <span class="l-sub">St. Joseph HS, with Optica BD</span></span>
+          <span class="l-when">2024–25</span>
+        </div>
+      </section>
 
-  <!-- ===== PROJECTS (hidden for now) =====
-  <h3>Projects</h3>
-  <div class="proj">
-    <span class="pname">Drone (Funded by FabLab DU)</span>
-    <div class="pmeta">ESP32 quadcopter UAV · Python, Arduino · 2024</div>
-  </div>
-  <div class="proj">
-    <span class="pname">ESP32 Retro Gaming Console</span>
-    <div class="pmeta">Handheld console, three arcade games · 2026</div>
-  </div>
-  <div class="proj">
-    <span class="pname">Pocket Reader — ESP32 Handheld E-Book Reader</span>
-    <div class="pmeta">ESP32 handheld e-book reader with on-device Wi-Fi portal · 2026</div>
-  </div>
-  <div class="proj">
-    <span class="pname">Laser Harp</span>
-    <div class="pmeta">Two-octave laser-and-LED instrument · Arduino · 2023</div>
-  </div>
+      <!-- LEADERSHIP -->
+      <section class="sec">
+        <h2>Leadership</h2>
+        <div class="line">
+          <span class="l-main"><b>IEEE SIGHT Student Branch, DU</b> — Chair</span>
+          <span class="l-when">Apr 2026 – Present</span>
+        </div>
+        <div class="line">
+          <span class="l-main">IEEE SIGHT SB DU — <span class="l-sub">Program Coordinator</span></span>
+          <span class="l-when">Feb 2025 – Mar 2026</span>
+        </div>
+        <div class="line">
+          <span class="l-main">IEEE Photonics Society SB DU — <span class="l-sub">Event Coordinator</span></span>
+          <span class="l-when">Feb 2025 – Mar 2026</span>
+        </div>
+        <div class="line">
+          <span class="l-main">Optics &amp; Photonics Club — <span class="l-sub">Vice President</span></span>
+          <span class="l-when">Jan 2024 – Apr 2025</span>
+        </div>
+      </section>
 
-  -->
+      <!-- EDUCATION -->
+      <section class="sec">
+        <h2>Education</h2>
+        <div class="line">
+          <span class="l-main"><b>University of Dhaka</b> — B.Sc. in EEE · <span class="l-sub">CGPA 3.73 / 4.00</span></span>
+          <span class="l-when">Sept 2022 – Dec 2026</span>
+        </div>
+        <div class="line">
+          <span class="l-main">Notre Dame College — HSC (Science) · <span class="l-sub">GPA 5.00</span></span>
+          <span class="l-when">2019 – 2021</span>
+        </div>
+        <div class="line">
+          <span class="l-main">Ideal School &amp; College — SSC (Science) · <span class="l-sub">GPA 5.00</span></span>
+          <span class="l-when">2019</span>
+        </div>
+      </section>
 
-  <!-- ===== Footer (same on every page) ===== -->
+    </main>
+
+  <!-- ===== Footer (universal — same on every page) ===== -->
   <footer>
     <span>© 2026 Tahsin Touheed Ivan</span>
     <span class="social">
-      <a href="mailto:ivan19tauhid@gmail.com">Email</a>
-      <a href="https://github.com/Ivanov19">GitHub</a>
-      <a href="https://www.facebook.com/ivan.tawhid.5">Facebook</a>
       <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
     </span>
   </footer>
