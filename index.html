@@ -9,6 +9,7 @@
   <link rel="apple-touch-icon" sizes="192x192" href="images/android-chrome-192x192.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#7a1f1f">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
   <style>
     /* ===== Warm theme — change colors here ===== */
     :root {
@@ -38,7 +39,8 @@
     nav a.active { background: var(--accent); color:#fff; }
 
     /* ===== Two-column layout: main + updates rail ===== */
-    .layout { display:grid; grid-template-columns: 1fr 250px; gap:40px; align-items:start; }
+    .layout { display:grid; grid-template-columns: 250px 1fr; gap:40px; align-items:start; }
+    .rail { order:-1; }   /* place updates on the left */
 
     h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
     .tag { color: var(--muted); margin:0 0 22px; }
@@ -77,6 +79,18 @@
     #older.open { display:block; }
     .rail .seemore { font-size:13px; margin-top:6px; }
 
+    /* ===== Rail social row ===== */
+    .rail-social {
+      display:flex; gap:18px; align-items:center; margin-bottom:20px;
+    }
+    .rail-social a {
+      color:var(--ink); font-size:23px; line-height:1;
+      font-style:normal; text-decoration:none;
+      display:inline-flex; align-items:center; transition:color 0.15s ease;
+    }
+    .rail-social a:hover { color:var(--teal); }
+    .rail-social .cv { font-size:15px; font-weight:600; letter-spacing:0.03em; }
+
     /* ===== Visitor map ===== */
     .visitor-map {
       margin-top:30px; padding-top:22px;
@@ -105,7 +119,7 @@
     /* ===== Mobile: stack, rail flows below content ===== */
     @media (max-width:720px) {
       .layout { grid-template-columns:1fr; gap:28px; }
-      .rail { position:static; }
+      .rail { position:static; order:0; }   /* main content first when stacked */
     }
   </style>
 </head>
@@ -156,12 +170,20 @@
       <!-- ===== Visitor map ===== -->
       <div class="visitor-map">
         <div class="vm-label">Where my visitors are</div>
-        <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=mHJjURGaKSk-qxc81PhW3l6UikCHcrDESb4MrXHDOZQ&cl=ffffff&w=a"></script>
+        <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?cl=070101&w=a&t=n&d=mHJjURGaKSk-qxc81PhW3l6UikCHcrDESb4MrXHDOZQ&co=cee2ef"></script>
       </div>
     </main>
 
     <!-- ===== Updates rail (newest on top) ===== -->
     <aside class="rail">
+      <div class="rail-social">
+        <a href="https://www.facebook.com/ivan.tawhid.5" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" title="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+        <a href="https://github.com/Ivanov19" title="GitHub"><i class="ti ti-brand-github"></i></a>
+        <a href="mailto:ivan19tauhid@gmail.com" title="Gmail"><i class="ti ti-mail"></i></a>
+        <a href="assets/CV.pdf" class="cv" title="CV">CV</a>
+      </div>
+
       <h3>News &amp; Updates</h3>
 
       <!-- Recent: show 3–4 here -->
