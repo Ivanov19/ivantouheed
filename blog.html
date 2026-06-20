@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog — Tahsin Touheed Ivan</title>
+  <title>Ivan</title>
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="192x192" href="images/android-chrome-192x192.png">
@@ -12,7 +12,7 @@
   <style>
     /* ===== Warm theme — change colors here ===== */
     :root {
-      --bg:#faf8f3; --ink:#2b2b2b; --muted:#8a857c; --link:#b5651d; --rule:#e7e2d8;
+      --bg:#f5f6f7; --ink:#2b2b2b; --muted:#8a857c; --link:#b5651d; --rule:#e3e5e8;
       --accent:#7a1f1f; --accent-soft:#f0e3e3;
       --teal:#14706a; --teal-soft:#e1f0ee;   /* complementary accent */
     }
@@ -20,12 +20,12 @@
     body {
       font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
       background: var(--bg); color: var(--ink); line-height: 1.7;
-      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+      max-width: 880px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
     }
 
     /* ===== Top navigation ===== */
     nav {
-      display:flex; gap:6px; margin-bottom:44px;
+      display:flex; gap:6px; margin-bottom:40px;
       padding-bottom:14px; border-bottom:2px solid var(--accent);
     }
     nav a {
@@ -38,65 +38,190 @@
     nav a.active { color: var(--teal); background:none; }
     nav a.active::before { content:">> "; }
 
+    /* ===== Two-column layout: rail (left) + main ===== */
+    .layout { display:grid; grid-template-columns: 250px 1fr; gap:40px; align-items:start; }
+
     h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
     .tag { color: var(--muted); margin:0 0 22px; }
-    img.photo { width:140px; height:140px; object-fit:cover; border-radius:12px; margin:10px 0 18px; }
     a { color: inherit; text-decoration: none; font-style: italic; }
     nav a, footer a, .seemore { font-style: normal; }
     .links a { margin-right:14px; font-size:14px; }
-    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
-    h3 { font-size:15px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin:30px 0 14px; }
-    .news p { margin:0 0 16px; }
-    .date { color:var(--ink); font-weight:600; }
-    ul { padding-left:18px; } li { margin-bottom:10px; }
     .muted { color:var(--muted); font-size:14px; }
-    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
-    .post p { margin:0 0 18px; }
-    .back { font-size:14px; text-decoration:none; }
 
-    /* ===== Footer ===== */
+    /* ===== See more / Show less toggle (intro) ===== */
+    #more { display:none; }
+    #more.open { display:block; }
+    .seemore {
+      background:none; border:none; padding:0; cursor:pointer;
+      color:var(--teal); font-weight:600; font-size:15px;
+      font-family:inherit; display:inline-flex; align-items:center; gap:5px;
+    }
+    .seemore:hover { text-decoration:underline; }
+    .seemore .chev { transition:transform 0.15s ease; }
+    .seemore.open .chev { transform:rotate(180deg); }
+
+    /* ===== Left rail (photo + icons + updates) ===== */
+    .rail {
+      order:-1;                       /* place rail on the left */
+      background:#fff; border:1px solid #e7e9eb; border-radius:12px;
+      padding:16px 18px; position:sticky; top:24px;
+    }
+    .rail .photo {
+      width:100%; aspect-ratio:3/4; object-fit:cover;
+      border-radius:10px; display:block; margin-bottom:8px;
+    }
+    .rail .photo-loc { font-size:12px; color:var(--teal); margin:0 0 16px; }
+
+    .rail h3 {
+      font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+      color:var(--muted); margin:0 0 14px;
+    }
+    .rail .u { font-size:14px; line-height:1.55; margin-bottom:13px; }
+    .rail .u:last-child { margin-bottom:0; }
+    .rail .date { color:var(--teal); font-weight:600; }
+    #older { display:none; }
+    #older.open { display:block; }
+    .rail .seemore { font-size:13px; margin-top:6px; }
+
+    /* ===== Rail social row (Style A inline icons) ===== */
+    .rail-social { display:flex; gap:16px; align-items:center; margin-bottom:18px; }
+    .rail-social a {
+      color:var(--ink); display:inline-flex; align-items:center;
+      font-style:normal; text-decoration:none; transition:color 0.15s ease;
+    }
+    .rail-social a svg { width:20px; height:20px; fill:currentColor; display:block; }
+    .rail-social a:hover { color:var(--teal); }
+    .rail-social .cv { font-size:15px; font-weight:600; letter-spacing:0.03em; }
+
+    /* ===== Visitor map ===== */
+    .visitor-map { margin-top:30px; padding-top:22px; border-top:1px solid var(--rule); }
+    .vm-label {
+      font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+      color:var(--muted); margin-bottom:12px;
+    }
+    .visitor-map img { max-width:100%; border-radius:8px; }
+
+    /* ===== Footer (universal — same on every page) ===== */
     footer {
-      margin-top:60px; padding-top:22px;
+      margin-top:50px; padding-top:22px;
       border-top:1px solid var(--rule);
       font-size:14px; color:var(--muted);
       display:flex; flex-wrap:wrap; gap:8px 18px;
       align-items:center; justify-content:space-between;
     }
-    footer .social a {
-      color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600;
-    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
     footer .social a:first-child { margin-left:0; }
     footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Mobile: stack (rail with photo on top, then bio) ===== */
+    @media (max-width:720px) {
+      .layout { grid-template-columns:1fr; gap:28px; }
+      .rail { position:static; }
+    }
   </style>
 </head>
 <body>
 
   <!-- ===== Top nav (same on every page) ===== -->
   <nav>
-    <a href="index.html">About</a>
+    <a class="active" href="index.html">About</a>
     <a href="experience.html">Experience</a>
     <a href="assets/CV.pdf">CV</a>
-    <a class="active" href="blog.html">Blog</a>
+    <a href="blog.html">Blog</a>
   </nav>
 
-  <h1>Blog</h1>
-  <p class="muted">Be welcomed at your own risk, you might cringe.</p>
+  <div class="layout">
 
-  <!-- ===== One <li> per post. Newest on top. ===== -->
-  <ul>
-    <li><a href="https://ivantouheed.wordpress.com/">Check out this site</a> <span class="muted">— Jan 2026</span></li>
-  </ul>
+    <!-- ===== Left rail: photo, icons, updates ===== -->
+    <aside class="rail">
+      <!-- photo (3/4 ratio) -->
+      <img class="photo" src="images/me.jpg"
+           onerror="this.src='https://placehold.co/300x400/eee/999?text=:)'" alt="Tahsin Touheed Ivan">
+      <p class="photo-loc">📍 Jolshiri Park, 300 feet, Dhaka</p>
 
-  <!-- ===== Footer (same on every page) ===== -->
+      <!-- social icons (Style A) -->
+      <div class="rail-social">
+        <a href="https://www.facebook.com/ivan.tawhid.5" title="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z"/></svg></a>
+        <a href="https://www.linkedin.com/in/ivan-touheed-a96575245/" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28z"/></svg></a>
+        <a href="https://github.com/Ivanov19" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.2 3.44 9.6 8.21 11.16.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.72-4.04-1.61-4.04-1.61-.55-1.38-1.34-1.75-1.34-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.32-5.47-5.89 0-1.3.47-2.36 1.24-3.19-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 016 0c2.29-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.89 1.24 3.19 0 4.58-2.81 5.58-5.49 5.88.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.28 0 .32.22.7.83.58A12.01 12.01 0 0024 12.29C24 5.78 18.63.5 12 .5z"/></svg></a>
+        <a href="mailto:ivan19tauhid@gmail.com" title="Gmail"><svg viewBox="0 0 24 24"><path d="M22 5H2a1 1 0 00-1 1v12a1 1 0 001 1h20a1 1 0 001-1V6a1 1 0 00-1-1zm-1.6 2L12 12.6 3.6 7h16.8zM3 17V8.2l9 6 9-6V17H3z"/></svg></a>
+        <a href="assets/CV.pdf" class="cv" title="CV">CV</a>
+      </div>
+
+      <!-- updates -->
+      <h3>Few Updates on me</h3>
+      <div class="u"><span class="date">Apr 2026</span> — Became Chair at IEEE SIGHT Student Branch, DU.</div>
+      <div class="u"><span class="date">Jan 2026</span> — Joined the Materials Science Research Lab (MSRL DU) as an undergraduate researcher.</div>
+
+      <div id="older">
+       <!--<div class="u"><span class="date">Feb 2025</span> — Joined IEEE SIGHT as Program Coordinator.</div>--> 
+       <!--<div class="u"><span class="date">Jan 2024</span> — Became Vice President of the Optics &amp; Photonics Club.</div>-->
+      </div>
+
+      <button class="seemore" id="older-toggle" onclick="toggleOlder()">
+        <span id="older-label">See older</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+    </aside>
+
+    <!-- ===== Main column: bio ===== -->
+    <main>
+      <h1>Tahsin Touheed Ivan</h1>
+      <p class="tag">EEE . DU</p>
+
+      <p>Hello, Ivan here!</p>
+      <p>I am a final-year undergraduate student in <a href="https://du.ac.bd/body/EEE">Dept. of Electrical &amp; Electronic Engineering (EEE) at the University of Dhaka</a>, Dhaka. My research interests lie at the intersection of materials science and artificial
+        intelligence — specifically, leveraging machine learning to accelerate the discovery and design of nanomaterials for energy storage and electronic &amp; photonic device applications.</p>
+
+      <div id="more">
+        <p>I am currently working with <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Professor Dr. Imtiaz Ahmed</a>, as one of the core members of our <a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Lab at University of Dhaka</a>.
+    I completed my higher secondary education at <a href="https://ndc.edu.bd/">Notre Dame College, Dhaka</a> — an institution I am proud to be a part of. Since then, I have worked on a range of embedded systems and hardware projects,
+        including co-developing FabLab DU's first departmental drone — a low-cost ESP32-based quadcopter, and a few ESP32-based hobby devices.</p>
+        <p>My passions lie in reading and writing — Dostoevsky, Murakami, and Humayun Ahmed are permanent favourites. I also deeply enjoy cinema; I love watching, analysing, and obsessing over films,
+        with Satyajit Ray and Christopher Nolan as my all-time favourite directors. And I love to eat — which, as you can imagine, makes weight loss quite the ongoing struggle.
+        Feel free to check out my <a href="blog.html">blog</a> if you'd like to read some of my writings!</p>
+      </div>
+
+      <button class="seemore" id="toggle" onclick="toggleMore()">
+        <span id="toggle-label">See more</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+
+      <!-- ===== Visitor map (below intro) ===== -->
+      <div class="visitor-map">
+        <div class="vm-label">Where my visitors are</div>
+        <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?cl=070101&w=a&t=n&d=mHJjURGaKSk-qxc81PhW3l6UikCHcrDESb4MrXHDOZQ&co=dbe8f2"></script>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ===== Footer (universal — same on every page) ===== -->
   <footer>
     <span>© 2026 Tahsin Touheed Ivan</span>
     <span class="social">
-      <a href="mailto:ivan19tauhid@gmail.com">Email</a>
-      <a href="https://github.com/Ivanov19">GitHub</a>
-      <a href="https://www.facebook.com/ivan.tawhid.5">Facebook</a>
       <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
     </span>
   </footer>
+
+  <script>
+    function toggleMore() {
+      var more = document.getElementById('more');
+      var btn = document.getElementById('toggle');
+      var label = document.getElementById('toggle-label');
+      var open = more.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      label.textContent = open ? 'Show less' : 'See more';
+    }
+    function toggleOlder() {
+      var older = document.getElementById('older');
+      var btn = document.getElementById('older-toggle');
+      var label = document.getElementById('older-label');
+      var open = older.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      label.textContent = open ? 'Show less' : 'See older';
+    }
+  </script>
 
 </body>
 </html>
