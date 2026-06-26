@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research — Tahsin Touheed Ivan</title>
+  <style>
+    /* ===== Neutral theme — change colors here ===== */
+    :root {
+      --bg:#ffffff;          /* page background */
+      --ink:#1a1a1a;         /* main text */
+      --muted:#6b6b6b;       /* secondary text, dates, labels */
+      --link:#2f5e8a;        /* link / accent blue */
+      --rule:#e8e8e8;        /* hairlines and borders */
+      --accent:#1a1a1a;      /* headings & names (kept neutral black) */
+      --accent-soft:#ececec; /* soft heading underline */
+      --teal:#2f5e8a;        /* single accent — dates, active nav, hovers */
+      --teal-soft:#eef4f9;   /* soft accent tint */
+      --nav-track:#f1f0ee;   /* nav pill track background */
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 880px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);   /* raised active pill */
+    }
+
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .cv-bar a, .sec-label { font-style: normal; }
+
+    /* ===== Research interests (under the lab, before the work) — edit keywords here ===== */
+    .interests { margin:14px 0 18px; }
+    .int-label {
+      display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.09em;
+      color:var(--muted); font-weight:600; margin-bottom:9px;
+    }
+    .tag {
+      display:inline-block; font-size:12.5px; background:#f1f0ee; color:#444;
+      padding:4px 12px; border-radius:20px; margin:0 7px 7px 0;
+    }
+
+    /* ===== Current research (the centerpiece) ===== */
+    .entry { margin-bottom:36px; }
+    .entry .top { display:flex; justify-content:space-between; align-items:baseline; gap:14px; }
+    .entry .org { font-weight:600; color:var(--ink); font-size:16px; }
+    .entry .when { color:var(--teal); font-size:13px; font-weight:600; white-space:nowrap; }
+    .entry .role { color:var(--muted); font-size:14px; font-style:italic; margin:2px 0 12px; }
+    .entry p { margin:0 0 12px; font-size:15px; line-height:1.62; }
+    .entry p:last-child { margin-bottom:0; }
+
+    /* ===== Selected projects (supporting — kept concise) ===== */
+    .sec-label {
+      font-size:12px; text-transform:uppercase; letter-spacing:0.09em;
+      color:var(--muted); font-weight:600; margin:0 0 16px;
+    }
+    .proj { border-left:2px solid var(--rule); padding-left:15px; margin-bottom:20px; }
+    .proj .top { display:flex; justify-content:space-between; align-items:baseline; gap:14px; }
+    .proj .p-name { font-weight:600; color:var(--ink); font-size:15px; }
+    .proj .when { color:var(--teal); font-size:12.5px; font-weight:600; white-space:nowrap; }
+    .proj .award { color:var(--teal); font-size:12.5px; margin:3px 0 4px; }
+    .proj .role { color:var(--muted); font-size:13px; font-style:italic; margin:2px 0 4px; }
+    .proj .p-desc { color:var(--muted); font-size:14px; line-height:1.55; margin:0; }
+
+    /* ===== "See the CV" bar — everything else lives in the CV ===== */
+    .cv-bar {
+      background:#f7f7f5; border-radius:10px; padding:14px 18px; margin-top:32px;
+      display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
+    }
+    .cv-bar span { color:var(--muted); font-size:14px; }
+    .cv-bar a { color:var(--teal); font-weight:600; font-size:14px; }
+    .cv-bar a:hover { text-decoration:underline; }
+
+    /* ===== Footer (same on every page) ===== */
+    footer {
+      margin-top:50px; padding-top:22px;
+      border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--ink); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Mobile ===== */
+    @media (max-width:720px) {
+      .entry .top, .proj .top { flex-direction:column; gap:1px; }
+      .entry .when, .proj .when { white-space:normal; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Top nav (same on every page) — edit links/labels here ===== -->
+  <nav>
+    <div class="nav-group">
+      <a href="index.html">About</a>
+      <a class="active" href="research.html">Research</a>
+      <a href="assets/CV.pdf">CV</a>
+      <a href="blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== Current research (centerpiece — starts directly with the lab) ===== -->
+    <section class="entry">
+      <div class="top">
+        <span class="org"><a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Laboratory (MSRL DU)</a></span>
+        <span class="when">Jan 2026 – Present</span>
+      </div>
+      <p class="role">Undergraduate Researcher · Supervisor:
+        <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Dr. Imtiaz Ahmed</a></p>
+
+      <!-- ===== Research interests — add/remove keywords here ===== -->
+      <div class="interests">
+        <span class="int-label">Research interests</span>
+        <span class="tag">Machine learning for materials discovery</span>
+        <span class="tag">Nanomaterials synthesis &amp; characterization</span>
+        <span class="tag">Energy storage materials</span>
+        <span class="tag">Nanoelectronics</span>
+        <span class="tag">Nanophotonics</span>
+        <span class="tag">Micro/nano-engineered devices</span>
+      </div>
+
+      <p><b>Current Work — Machine-Learning-Guided Electrode Design for Supercapacitors: From Data Mining to Experimental Validation.</b>
+        I am building a structured literature dataset of oxide-based electrode materials
+        (perovskites, spinels, layered oxides, nitrides, and oxynitrides) and applying machine
+        learning to map material and process descriptors — synthesis method, calcination conditions,
+        electrolyte, BET surface area, morphology, and crystal phase — to specific capacitance (Csp),
+        with SHAP-based feature-importance analysis to identify the dominant descriptors governing
+        performance.</p>
+      <p>Model-shortlisted candidates are then validated experimentally: ML-identified high-impact
+        features guide targeted material synthesis, followed by structural characterization
+        (BET, XRD, Raman, XPS) and electrochemical testing (CV, GCD, EIS) — closing the loop between
+        data-driven prediction and physical material behavior.</p>
+    </section>
+
+    <!-- ===== Selected projects (keep to your 2–3 strongest) ===== -->
+    <h3 class="sec-label">Selected projects</h3>
+
+    <div class="proj">
+      <div class="top">
+        <span class="p-name">SmartDrip — IoT Drip Irrigation for Urban Rooftops</span>
+        <span class="when">2026 – Ongoing</span>
+      </div>
+      <p class="award">Awarded IEEE HTB Tech4Good 2026 · USD 4,739</p>
+      <p class="p-desc">Leading an IEEE SIGHT SB DU team building an IoT-enabled drip irrigation system that makes
+        urban rooftop plantation water-efficient and low-maintenance — addressing freshwater stress
+        and food-resilience in dense cities. Currently directing system design, sensor–actuator
+        integration, and field-deployment planning.</p>
+    </div>
+
+    <div class="proj">
+      <div class="top">
+        <span class="p-name">Project: Drone (Funded by FabLab DU)</span>
+        <span class="when">2024</span>
+      </div>
+      <p class="role">ESP32 Quadcopter · Supervisor:
+        <a href="https://www.du.ac.bd/body/faculty_details/EEE/1168">Dr. Md. Shafiul Alam</a></p>
+      <p class="p-desc">Co-developed the department's first drone — a ~USD 66 ESP32-based quadcopter — to test whether
+        commodity microcontrollers can replace STM32 commercial flight controllers. Covered the full
+        embedded stack: ESC/PWM communication, hand-tuned cascaded PID control, and diagnosing IMU
+        drift and vibration instability.</p>
+    </div>
+
+    <!-- ===== Everything else points to the CV ===== -->
+    <div class="cv-bar">
+      <span>Leadership, teaching, outreach &amp; the full project list —</span>
+      <a href="assets/CV.pdf">View full CV →</a>
+    </div>
+
+  </main>
+
+  <!-- ===== Footer (same on every page) ===== -->
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+</body>
+</html>
