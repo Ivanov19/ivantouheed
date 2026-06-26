@@ -4,17 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Experience — Tahsin Touheed Ivan</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="images/android-chrome-192x192.png">
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#7a1f1f">
   <style>
-    /* ===== Warm theme — change colors here ===== */
+    /* ===== Neutral theme — change colors here ===== */
     :root {
-      --bg:#f5f6f7; --ink:#2b2b2b; --muted:#8a857c; --link:#b5651d; --rule:#e3e5e8;
-      --accent:#7a1f1f; --accent-soft:#f0e3e3;
-      --teal:#14706a; --teal-soft:#e1f0ee;   /* complementary accent */
+      --bg:#ffffff;          /* page background */
+      --ink:#1a1a1a;         /* main text */
+      --muted:#6b6b6b;       /* secondary text, dates, labels */
+      --link:#2f5e8a;        /* link / accent blue */
+      --rule:#e8e8e8;        /* hairlines and borders */
+      --accent:#1a1a1a;      /* headings & names (kept neutral black) */
+      --accent-soft:#ececec; /* soft heading underline */
+      --teal:#2f5e8a;        /* single accent — dates, active nav, hovers */
+      --teal-soft:#eef4f9;   /* soft accent tint */
+      --nav-track:#f1f0ee;   /* nav pill track background */
     }
     * { box-sizing:border-box; }
     body {
@@ -23,20 +25,23 @@
       max-width: 880px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
     }
 
-    /* ===== Top navigation ===== */
-    nav {
-      display:flex; gap:6px; margin-bottom:40px;
-      padding-bottom:14px; border-bottom:2px solid var(--accent);
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
     }
     nav a {
-      color: var(--accent); text-decoration:none;
-      font-size:18px; font-weight:600; letter-spacing:0.01em;
-      padding:8px 16px; border-radius:8px;
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
       transition: background 0.15s ease, color 0.15s ease;
     }
-    nav a:hover { background: rgba(20,112,106,0.12); color: var(--teal); }
-    nav a.active { color: var(--teal); background:none; }
-    nav a.active::before { content:">> "; }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);   /* raised active pill */
+    }
 
     a { color: inherit; text-decoration: none; font-style: italic; }
     nav a, footer a, .seemore { font-style: normal; }
@@ -97,11 +102,14 @@
 <body>
 
   <!-- ===== Top nav (same on every page) ===== -->
+  <!-- ===== Top nav (same on every page) — edit links/labels here ===== -->
   <nav>
+    <div class="nav-group">
     <a href="index.html">About</a>
     <a class="active" href="experience.html">Experience</a>
     <a href="assets/CV.pdf">CV</a>
     <a href="blog.html">Blog</a>
+    </div>
   </nav>
 
   <main>
