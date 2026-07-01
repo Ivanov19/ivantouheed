@@ -150,15 +150,15 @@
   <p>This phrase gets thrown around a lot and it's worth slowing down on.</p>
   <p>A model is just a mathematical function — something that takes inputs and produces an output.
   What "learning" means, technically, is adjusting the internal parameters of that function until its
-  outputs match the data you've shown it as closely as possible. It's optimization, not cognition. The
-  model isn't understanding anything. It's finding the numerical configuration that minimizes error on
-  the examples you gave it.</p>
-  <p>This distinction matters, because it tells you exactly where ML breaks down: give it examples that
+  outputs match the data you've shown it as closely as possible. It's optimization, not some cognitive-learning. The
+  model doesn't understand any of your real data you put in. It's finding the numerical configuration that minimizes error on
+  the examples given to it.</p>
+  <p>This distinction matters though, because it tells you exactly where ML breaks down: give it examples that
   don't represent what you actually care about, and it will optimize perfectly for the wrong thing. It
   has no way to know the difference.</p>
 
   <h2>Two broad types worth knowing</h2>
-  <p>Most ML falls into one of two camps.</p>
+  <p><i>Most</i> ML falls into either of the two categories.</p>
   <p><span class="term">Supervised learning</span> — you have inputs and you have known outputs. You
   train the model on pairs of (input → output) and ask it to predict outputs for inputs it hasn't seen
   before. Predicting house prices, classifying emails as spam, estimating a material's performance from
@@ -168,6 +168,7 @@
   anomalies, compressing data. No right answer to compare against — you're exploring.</p>
   <p>Most of what gets called "practical ML" in industry and research is supervised. That's where we'll
   spend most of this series.</p>
+  <p>[There are several other categories as Reinforcement, semi-supervised or self-supervised learning. But we are not going to cover those in our "The Basics of ML Series" here. If you are further interested, <a href="https://www.geeksforgeeks.org/machine-learning/types-of-machine-learning/">check this out!</a>]</p>
 
   <h2>Regression vs Classification — one more split worth making</h2>
   <p>Within supervised learning, there's an important distinction based on what you're predicting.</p>
