@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blog — Tahsin Touheed Ivan</title>
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <style>
     /* ===== Neutral theme — change colors here ===== */
     :root {
@@ -72,9 +73,33 @@
     }
     footer .social a:first-child { margin-left:0; }
     footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
 
   <!-- ===== Top nav (same on every page) ===== -->
   <!-- ===== Top nav (same on every page) — edit links/labels here ===== -->
@@ -92,6 +117,7 @@
 
   <!-- ===== One <li> per post. Newest on top. ===== -->
   <ul>
+    <li><a href="posts/what-machine-learning-actually-is.html">Machine Learning, Honestly</a> <span class="muted">— Jul 2026 · ML series 1/8</span></li>
     <li><a href="https://ivantouheed.wordpress.com/">Check out this site</a> <span class="muted">— Jan 2026</span></li>
   </ul>
 
@@ -106,5 +132,20 @@
     </span>
   </footer>
 
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
 </body>
 </html>

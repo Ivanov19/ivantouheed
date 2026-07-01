@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>The Basics of ML (1/8) — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#2f5e8a">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+  <style>
+    /* ===== Neutral theme — matches index.html / blog.html ===== */
+    :root {
+      --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --link:#2f5e8a; --rule:#e8e8e8;
+      --accent:#1a1a1a; --accent-soft:#ececec;
+      --teal:#2f5e8a; --teal-soft:#eef4f9; --nav-track:#f1f0ee;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Section headings ===== */
+    .post h2 {
+      font-size:19px; font-weight:600; color:var(--accent);
+      margin:38px 0 12px; padding-bottom:6px;
+      border-bottom:1px solid var(--accent-soft);
+    }
+    .post .term { font-weight:600; color:var(--teal); font-style:normal; }
+    .post .kicker { color:var(--teal); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin:0 0 8px; }
+
+    /* ===== Drop cap — old-book style first letter ===== */
+    .post p.lead:first-letter {
+      float:left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:64px;
+      line-height:0.72;
+      font-weight:600;
+      color:var(--teal);
+      margin:6px 10px 0 0;
+      padding-top:4px;
+    }
+
+    /* ===== Footer (matches site) ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
+  </style>
+</head>
+<body class="post">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+
+  <!-- ===== Top nav (same on every page) ===== -->
+  <nav>
+    <div class="nav-group">
+      <a href="../index.html">About</a>
+      <a href="../research.html">Research</a>
+      <a href="../assets/CV.pdf">CV</a>
+      <a class="active" href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <!-- ▼▼ EDIT 2 of 3 — post heading + date ▼▼ -->
+  <p class="kicker">The basics of ML · Part 1 of 8</p>
+  <h1>So, What Is Machine Learning Again?</h1>
+  <p class="meta">Jul 2026</p>
+  <!-- ▲▲ ------------------------------------ ▲▲ -->
+
+  <!-- ▼▼ EDIT 3 of 3 — post body ▼▼ -->
+  <p class="lead">Everyone's talking about it. Most explanations either drown you in math or reduce
+  it to "computers that think." Neither is particularly useful. Let's try something more honest.</p>
+
+  <h2>The simplest way to put it</h2>
+  <p>Machine learning is a way of getting a computer to find patterns in data without explicitly
+  programming every rule.</p>
+  <p>In traditional programming, you write the rules. You tell the computer: if temperature is above
+  100°C and pressure exceeds this threshold, flag it as a problem. You encode the logic. The computer
+  executes it.</p>
+  <p>In machine learning, you flip that. You give the computer examples — here are 10,000 situations,
+  here's what happened in each one — and let it figure out the rules itself. You don't write the logic.
+  You show it enough cases and it learns to generalize.</p>
+  <p>That's it. That's the core idea. Everything else is detail.</p>
+
+  <h2>What "the model learns" actually means</h2>
+  <p>This phrase gets thrown around a lot and it's worth slowing down on.</p>
+  <p>A model is just a mathematical function — something that takes inputs and produces an output.
+  What "learning" means, technically, is adjusting the internal parameters of that function until its
+  outputs match the data you've shown it as closely as possible. It's optimization, not cognition. The
+  model isn't understanding anything. It's finding the numerical configuration that minimizes error on
+  the examples you gave it.</p>
+  <p>This distinction matters, because it tells you exactly where ML breaks down: give it examples that
+  don't represent what you actually care about, and it will optimize perfectly for the wrong thing. It
+  has no way to know the difference.</p>
+
+  <h2>Two broad types worth knowing</h2>
+  <p>Most ML falls into one of two camps.</p>
+  <p><span class="term">Supervised learning</span> — you have inputs and you have known outputs. You
+  train the model on pairs of (input → output) and ask it to predict outputs for inputs it hasn't seen
+  before. Predicting house prices, classifying emails as spam, estimating a material's performance from
+  its composition — all supervised.</p>
+  <p><span class="term">Unsupervised learning</span> — you only have inputs, no labels. You're asking
+  the model to find structure in the data on its own. Grouping customers by behavior, detecting
+  anomalies, compressing data. No right answer to compare against — you're exploring.</p>
+  <p>Most of what gets called "practical ML" in industry and research is supervised. That's where we'll
+  spend most of this series.</p>
+
+  <h2>Regression vs Classification — one more split worth making</h2>
+  <p>Within supervised learning, there's an important distinction based on what you're predicting.</p>
+  <p><span class="term">Regression</span> — the output is a continuous number. How much? How long? What
+  value? Predicting temperature, price, or a performance score are regression problems.</p>
+  <p><span class="term">Classification</span> — the output is a category. Which one? Is it this or that?
+  Spam or not spam, cat or dog, disease present or absent — classification.</p>
+  <p>The same underlying logic applies to both. The math at the end changes slightly. The pipeline —
+  data, preprocessing, training, validation — is mostly identical.</p>
+
+  <h2>Where does an ML project actually start?</h2>
+  <p>Not with the model. That's the part most people get wrong.</p>
+  <p>It starts with the data. Specifically, with understanding what you have, what's missing, what's
+  noisy, and whether the examples you're working with are actually representative of the problem you
+  want to solve.</p>
+  <p>A sophisticated model trained on poorly understood data will give you sophisticated-looking wrong
+  answers. A simple model trained on clean, well-understood data will often outperform it.</p>
+  <p>The model is the last decision you make, not the first.</p>
+
+  <h2>What's next</h2>
+  <p>Post 2 is about data — what a real dataset actually looks like before anyone has cleaned it, and
+  why that stage of the work is where most projects quietly succeed or fail before the modeling even
+  begins.</p>
+  <p class="muted">This is Post 1 of an 8-part series on ML fundamentals — from raw data to model
+  interpretation. No assumed background, no unnecessary jargon.</p>
+  <!-- ▲▲ ------------------------------ ▲▲ -->
+
+  <p><a class="back" href="../blog.html">← back to blog</a></p>
+
+  <!-- ===== Footer (matches site) ===== -->
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>
