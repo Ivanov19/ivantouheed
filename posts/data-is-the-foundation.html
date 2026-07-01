@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>What Machine Learning Actually Is (1/8) — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#2f5e8a">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+  <style>
+    /* ===== Neutral theme — matches index.html / blog.html ===== */
+    :root {
+      --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --link:#2f5e8a; --rule:#e8e8e8;
+      --accent:#1a1a1a; --accent-soft:#ececec;
+      --teal:#2f5e8a; --teal-soft:#eef4f9; --nav-track:#f1f0ee;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Section headings ===== */
+    .post h2 {
+      font-size:19px; font-weight:600; color:var(--accent);
+      margin:38px 0 12px; padding-bottom:6px;
+      border-bottom:1px solid var(--accent-soft);
+    }
+    .post .term { font-weight:600; color:var(--teal); font-style:normal; }
+    .post .kicker { color:var(--teal); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin:0 0 8px; }
+
+    /* ===== Drop cap — old-book style first letter ===== */
+    .post p.lead:first-letter {
+      float:left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:64px;
+      line-height:0.72;
+      font-weight:600;
+      color:var(--teal);
+      margin:6px 10px 0 0;
+      padding-top:4px;
+    }
+
+    /* ===== Footer (matches site) ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
+    .post .figph { background:var(--teal-soft); border:1px dashed var(--rule); border-radius:8px;
+      padding:14px 16px; color:var(--muted); font-size:14px; margin:20px 0; }
+  </style>
+</head>
+<body class="post">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+
+  <nav>
+    <div class="nav-group">
+      <a href="../index.html">About</a>
+      <a href="../research.html">Research</a>
+      <a href="../assets/CV.pdf">CV</a>
+      <a class="active" href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <p class="kicker">ML Fundamentals · Post 2 of 8</p>
+  <h1>Your Data Is the Foundation. And It&#x27;s Usually a Mess.</h1>
+  <p class="meta">Jul 2026</p>
+
+  <p class="lead">Before a single model is trained, before a single parameter is tuned, there is a step that determines whether everything after it is meaningful or not. That step is understanding your data.</p>
+  <p>This sounds obvious. It rarely gets the attention it deserves.</p>
+  <h2>What a dataset actually is</h2>
+  <p>A dataset in ML is a table. Rows are observations — individual examples of the thing you're studying. Columns are features — the properties you've measured or recorded about each observation. One column is your target: the thing you want the model to predict.</p>
+  <p>A clean dataset looks like this: every row is complete, every column means one thing, units are consistent, and there are no duplicates. In practice, that almost never exists.</p>
+  <p>What you actually get is a table where some rows are missing several values, some columns have inconsistent formatting, units occasionally switch halfway through, and a handful of rows are clearly erroneous but not obviously wrong. This is real-world data, and it's normal.</p>
+  <h2>Missing values: the first thing to look at</h2>
+  <p>The first diagnostic to run on any dataset is a missingness map — a visual check of which columns have gaps and how much.</p>
+  <div class="figph">📊 Figure placeholder — a missingness heatmap — dark cells where data exists, white/yellow where it&#x27;s absent</div>
+  <p>Missing data is not automatically a problem. The question is: <i>why</i> is it missing?</p>
+  <p>There are three distinct situations:</p>
+  <p><i>Missing completely at random</i> — the gap has no relationship to anything else in the data. A sensor glitched. A field was left blank by accident. This is the benign case.</p>
+  <p><i>Missing at random (conditionally)</i> — the gap is related to another column you <i>do</i> have. Papers from certain time periods didn't report a particular measurement; newer papers did. The missingness is predictable from context.</p>
+  <p><i>Missing not at random</i> — the gap is related to the value itself. Extreme results often go unreported. This is the hard case, and naive imputation can introduce systematic bias.</p>
+  <p>The approach you take to fill gaps — or whether to fill them at all — depends entirely on which situation you're in. Filling everything with a column average regardless of why it's missing is technically easy and analytically wrong in most real datasets.</p>
+  <h2>Skewed distributions and why they matter</h2>
+  <p>Plot your target variable before doing anything else. A histogram takes thirty seconds and can change your entire strategy.</p>
+  <p>If the distribution is heavily skewed — most values clustered at the low end with a long tail of high values — linear models and many distance-based methods will perform poorly. The math they rely on assumes the target behaves roughly like a bell curve. When it doesn't, the model will systematically underperform on the extreme values, which are often the ones you care most about.</p>
+  <p>The standard fix is a log transform: replace the raw value with its logarithm before training. This compresses the tail, makes the distribution more symmetric, and stabilizes model performance across the full range. You reverse the transform when interpreting predictions.</p>
+  <h2>Redundant features</h2>
+  <p>Two features that are perfectly correlated carry the same information twice. In a linear model, this creates numerical instability. In tree models, it dilutes feature importance. Either way, it's noise you can remove.</p>
+  <p>A correlation matrix — a grid showing how strongly every numeric column correlates with every other — tells you where this is happening. Any pair with a correlation above 0.9 warrants a decision: keep one, drop one, or combine them into a single engineered feature.</p>
+  <h2>The principle that carries through the rest of this series</h2>
+  <p>Every hour spent understanding your data before modeling is worth more than an hour spent tuning a model on data you don't understand. This isn't a philosophical point — it's an empirical one. The datasets that produce reliable models are almost always ones where someone sat with the data long enough to know where the problems are before training started.</p>
+  <p><i>#MachineLearning #DataScience #MLFundamentals #DataCleaning</i></p>
+
+  <hr>
+  <p style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+    <a class="back" href="what-machine-learning-actually-is.html">← So, What Is Machine Learning Again?</a>
+    <a class="back" href="preprocessing.html">Preprocessing: Before the Model Sees Data →</a>
+  </p>
+  <p><a class="back" href="../blog.html">Back to blog index</a></p>
+
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>What Machine Learning Actually Is (1/8) — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#2f5e8a">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+  <style>
+    /* ===== Neutral theme — matches index.html / blog.html ===== */
+    :root {
+      --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --link:#2f5e8a; --rule:#e8e8e8;
+      --accent:#1a1a1a; --accent-soft:#ececec;
+      --teal:#2f5e8a; --teal-soft:#eef4f9; --nav-track:#f1f0ee;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Section headings ===== */
+    .post h2 {
+      font-size:19px; font-weight:600; color:var(--accent);
+      margin:38px 0 12px; padding-bottom:6px;
+      border-bottom:1px solid var(--accent-soft);
+    }
+    .post .term { font-weight:600; color:var(--teal); font-style:normal; }
+    .post .kicker { color:var(--teal); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin:0 0 8px; }
+
+    /* ===== Drop cap — old-book style first letter ===== */
+    .post p.lead:first-letter {
+      float:left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:64px;
+      line-height:0.72;
+      font-weight:600;
+      color:var(--teal);
+      margin:6px 10px 0 0;
+      padding-top:4px;
+    }
+
+    /* ===== Footer (matches site) ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
+    .post .figph { background:var(--teal-soft); border:1px dashed var(--rule); border-radius:8px;
+      padding:14px 16px; color:var(--muted); font-size:14px; margin:20px 0; }
+  </style>
+</head>
+<body class="post">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+
+  <nav>
+    <div class="nav-group">
+      <a href="../index.html">About</a>
+      <a href="../research.html">Research</a>
+      <a href="../assets/CV.pdf">CV</a>
+      <a class="active" href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <p class="kicker">ML Fundamentals · Post 3 of 8</p>
+  <h1>Preprocessing: What Happens Before the Model Sees Your Data</h1>
+  <p class="meta">Jul 2026</p>
+
+  <p class="lead">You have your data. You've looked at it, understood its shape, noted where the gaps are. Now you need to convert it into a form a model can actually process.</p>
+  <p>This stage is called preprocessing. It's unglamorous work. It's also where many projects either build a solid foundation or quietly introduce errors that corrupt everything downstream.</p>
+  <h2>Why models can't just take raw data</h2>
+  <p>Most ML algorithms operate on numbers. They compute distances, dot products, weighted sums. If your data contains text categories ("Hydrothermal", "Sol-gel", "Combustion"), the model cannot work with them directly — you have to encode them numerically. If your numeric columns span wildly different scales (one column ranges from 0 to 1, another from 0 to 50,000), models that rely on distance calculations will treat the large-scale column as far more important simply because its numbers are bigger, regardless of whether that's physically meaningful.</p>
+  <p>Preprocessing is the set of transformations that fixes these issues.</p>
+  <h2>Encoding categorical variables</h2>
+  <p>The most common approach is one-hot encoding: create a new binary column for each category, set it to 1 if the row belongs to that category, 0 otherwise.</p>
+  <p>If your synthesis_method column has 5 categories, it becomes 5 binary columns. The model sees numbers; you've preserved the categorical structure.</p>
+  <p>The tradeoff: one-hot encoding expands your dataset width. With high-cardinality columns — a composition formula with 200 unique values, for instance — one-hot encoding creates 200 columns, most of which are zero for any given row. This is called sparse representation, and it can harm model performance. Alternative approaches (target encoding, embedding) exist for these cases.</p>
+  <h2>Scaling numeric features</h2>
+  <p>When you scale numeric features, you're putting them on a comparable footing. Two common methods:</p>
+  <p><i>Standardisation</i> — subtract the mean, divide by standard deviation. Each column now has mean 0 and std 1. Linear models, SVR, and neural networks benefit significantly from this.</p>
+  <p><i>Min-max normalisation</i> — rescale each column to the range [0, 1]. Useful when you want to preserve the shape of the distribution exactly.</p>
+  <p>Tree-based models (Random Forest, XGBoost) do not need scaling — they make decisions based on rank ordering of values, not magnitude. Applying scaling to them won't hurt, but it won't help either.</p>
+  <h2>Imputing missing values</h2>
+  <p>Three approaches, in increasing sophistication:</p>
+  <p><i>Drop the row</i> — if a row is missing too many values to be useful, remove it. Works when missingness is rare and random.</p>
+  <p><i>Simple imputation</i> — replace missing values with the column mean (for numeric) or the most common value (for categorical). Fast, easy, and wrong when the missingness is systematic rather than random.</p>
+  <p><i>Model-based imputation (IterativeImputer)</i> — train a regression model to predict the missing value from the other columns. Works column by column, iteratively, until predictions stabilize. More computation, far more defensible when missingness correlates with other features.</p>
+  <p>One addition that's worth the five lines of code: after imputing, add a binary "was this value missing?" indicator column. If the absence of a measurement is itself informative — and in literature-scraped data, it often is — the model can learn that signal too.</p>
+  <h2>Feature engineering</h2>
+  <p>Preprocessing isn't just cleaning what you have. It's sometimes creating new features from existing ones that better represent the underlying structure.</p>
+  <p>Simple examples: a ratio of two columns that together drive the target more than either does alone. A log transform of a skewed input feature. A binary flag that indicates whether a material belongs to a certain class.</p>
+  <p>The best feature engineering is grounded in domain knowledge — understanding <i>why</i> two quantities relate, not just that they correlate in your training set. A derived feature with a physical justification generalizes. One that happens to correlate in your particular dataset often doesn't.</p>
+  <h2>The critical rule: fit on training data only</h2>
+  <p>Every parameter of your preprocessing pipeline — the mean you subtract during scaling, the percentile boundaries you use for normalisation, the predicted values in IterativeImputer — must be calculated from the training data only, then applied to the test set.</p>
+  <p>If you compute the column mean from the entire dataset before splitting, your test set has already influenced the pipeline. The scores you get are not honest. This is a form of data leakage, and it's surprisingly common.</p>
+  <p>Sklearn's Pipeline object exists precisely to enforce this. If you're not using it, you should be.</p>
+  <p><i>#MachineLearning #DataScience #MLFundamentals #Preprocessing</i></p>
+
+  <hr>
+  <p style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+    <a class="back" href="data-is-the-foundation.html">← Your Data Is the Foundation (and a Mess)</a>
+    <a class="back" href="validation.html">Validation: Do Your Results Mean Anything? →</a>
+  </p>
+  <p><a class="back" href="../blog.html">Back to blog index</a></p>
+
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>

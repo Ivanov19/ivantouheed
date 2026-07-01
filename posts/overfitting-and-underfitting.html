@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>What Machine Learning Actually Is (1/8) — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#2f5e8a">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+  <style>
+    /* ===== Neutral theme — matches index.html / blog.html ===== */
+    :root {
+      --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --link:#2f5e8a; --rule:#e8e8e8;
+      --accent:#1a1a1a; --accent-soft:#ececec;
+      --teal:#2f5e8a; --teal-soft:#eef4f9; --nav-track:#f1f0ee;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Section headings ===== */
+    .post h2 {
+      font-size:19px; font-weight:600; color:var(--accent);
+      margin:38px 0 12px; padding-bottom:6px;
+      border-bottom:1px solid var(--accent-soft);
+    }
+    .post .term { font-weight:600; color:var(--teal); font-style:normal; }
+    .post .kicker { color:var(--teal); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin:0 0 8px; }
+
+    /* ===== Drop cap — old-book style first letter ===== */
+    .post p.lead:first-letter {
+      float:left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:64px;
+      line-height:0.72;
+      font-weight:600;
+      color:var(--teal);
+      margin:6px 10px 0 0;
+      padding-top:4px;
+    }
+
+    /* ===== Footer (matches site) ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
+    .post .figph { background:var(--teal-soft); border:1px dashed var(--rule); border-radius:8px;
+      padding:14px 16px; color:var(--muted); font-size:14px; margin:20px 0; }
+  </style>
+</head>
+<body class="post">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+
+  <nav>
+    <div class="nav-group">
+      <a href="../index.html">About</a>
+      <a href="../research.html">Research</a>
+      <a href="../assets/CV.pdf">CV</a>
+      <a class="active" href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <p class="kicker">ML Fundamentals · Post 6 of 8</p>
+  <h1>Overfitting, Underfitting, and the Balance Between Them</h1>
+  <p class="meta">Jul 2026</p>
+
+  <p class="lead">A model can fail in two completely different ways. It can be too simple — missing real structure in the data. Or it can be too complex — fitting the data so closely that it memorizes noise instead of learning signal. These two failure modes have names, and understanding them tells you what to do when your model isn't working.</p>
+  <h2>Underfitting: the model is too simple</h2>
+  <p>If your model performs poorly on training data <i>and</i> on test data, it's underfitting. It hasn't captured the actual patterns in the data — its assumptions are too restrictive for the problem at hand.</p>
+  <p>A classic example: fitting a straight line to data that has a clear curve. No matter how much data you show the model, the line will always miss the curve. The error isn't random — it's systematic. This is called high bias.</p>
+  <p>Fixes: use a more expressive model, add relevant features, engineer better representations of the data.</p>
+  <h2>Overfitting: the model is too complex</h2>
+  <p>If your model performs very well on training data but poorly on test data, it's overfitting. It's learned the specific rows it was trained on — including their noise, their measurement errors, their paper-specific quirks — rather than the general pattern.</p>
+  <div class="figph">📊 Figure placeholder — overfitting vs underfitting vs good fit curve through scatter data</div>
+  <p>This is called high variance: change the training set slightly and the model changes substantially. It's not learning the underlying relationship — it's learning the particular sample.</p>
+  <h2>The bias-variance tradeoff</h2>
+  <p>These two failure modes trade off against each other as a function of model complexity.</p>
+  <p>A simple model has high bias (systematic error) but low variance (stable across different training sets). A complex model has low bias but high variance — it fits any training set well but generalizes poorly.</p>
+  <div class="figph">📊 Figure placeholder — U-shaped total error curve vs model complexity, showing bias decreasing and variance increasing, with sweet spot in the middle</div>
+  <p>The goal is to find the complexity that minimizes total error on unseen data — not just training error. Training error almost always decreases as complexity increases; test error eventually starts rising again. The gap between training error and test error is what tells you whether you're on the overfitting side.</p>
+  <h2>Regularization: the practical solution</h2>
+  <p>Rather than choosing a completely different model, you can constrain the complexity of the model you have. This is called regularization.</p>
+  <p>For linear models, Ridge regression adds a penalty proportional to the size of the coefficients, discouraging the model from placing too much weight on any single feature. Lasso does the same but can drive coefficients to exactly zero, effectively removing features. The regularization strength (usually denoted alpha or lambda) is a hyperparameter you tune.</p>
+  <p>For trees, depth limits and minimum samples per leaf serve the same purpose. An unconstrained tree can grow until every training row has its own leaf — perfect training accuracy, terrible generalization. Limiting depth forces the tree to find patterns that hold across many rows rather than memorizing individual ones.</p>
+  <p>For neural networks, dropout randomly zeroes out units during training, preventing the network from relying too heavily on any individual node.</p>
+  <h2>What a parity plot tells you</h2>
+  <p>When you plot predicted values against actual values, the dots should cluster around the 45° diagonal. Systematic deviation from this line is informative:</p>
+  <ul>
+    <li>Dots consistently below the line at high values: the model underestimates extremes. Likely underfitting or a missing feature that matters most at high values.</li>
+    <li>Dots scattered widely: high variance, probably overfitting.</li>
+    <li>Fan-shaped spread (tight at low values, wide at high): the model struggles where the target is largest. Often a sign that a log transform of the target would help.</li>
+  </ul>
+  <h2>A number worth checking that most tutorials don't mention</h2>
+  <p>The standard deviation of your cross-validation scores. A mean R² of 0.6 with std 0.05 is a very different result from a mean R² of 0.6 with std 0.4. The first means the model consistently explains 60% of variance across held-out folds. The second means the model is highly unstable — doing well on some paper groups and failing on others. Both report the same mean. Only one of them tells you you have a problem.</p>
+  <p><i>#MachineLearning #DataScience #MLFundamentals #Overfitting #BiasVariance</i></p>
+
+  <hr>
+  <p style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+    <a class="back" href="model-lineup.html">← The Model Lineup</a>
+    <a class="back" href="feature-importance.html">Feature Importance: Opening the Black Box →</a>
+  </p>
+  <p><a class="back" href="../blog.html">Back to blog index</a></p>
+
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>

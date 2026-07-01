@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>What Machine Learning Actually Is (1/8) — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#2f5e8a">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+  <style>
+    /* ===== Neutral theme — matches index.html / blog.html ===== */
+    :root {
+      --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --link:#2f5e8a; --rule:#e8e8e8;
+      --accent:#1a1a1a; --accent-soft:#ececec;
+      --teal:#2f5e8a; --teal-soft:#eef4f9; --nav-track:#f1f0ee;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Section headings ===== */
+    .post h2 {
+      font-size:19px; font-weight:600; color:var(--accent);
+      margin:38px 0 12px; padding-bottom:6px;
+      border-bottom:1px solid var(--accent-soft);
+    }
+    .post .term { font-weight:600; color:var(--teal); font-style:normal; }
+    .post .kicker { color:var(--teal); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin:0 0 8px; }
+
+    /* ===== Drop cap — old-book style first letter ===== */
+    .post p.lead:first-letter {
+      float:left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:64px;
+      line-height:0.72;
+      font-weight:600;
+      color:var(--teal);
+      margin:6px 10px 0 0;
+      padding-top:4px;
+    }
+
+    /* ===== Footer (matches site) ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
+    .post .figph { background:var(--teal-soft); border:1px dashed var(--rule); border-radius:8px;
+      padding:14px 16px; color:var(--muted); font-size:14px; margin:20px 0; }
+  </style>
+</head>
+<body class="post">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+
+  <nav>
+    <div class="nav-group">
+      <a href="../index.html">About</a>
+      <a href="../research.html">Research</a>
+      <a href="../assets/CV.pdf">CV</a>
+      <a class="active" href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <p class="kicker">ML Fundamentals · Post 8 of 8</p>
+  <h1>When the Model Hits a Ceiling</h1>
+  <p class="meta">Jul 2026</p>
+
+  <p class="lead">This is the post I wish I had read before starting. Not because it would have saved me the work — the work was necessary. But because understanding this earlier would have changed how I interpreted the results along the way.</p>
+  <h2>The plateau</h2>
+  <p>You run your baseline. You preprocess carefully, engineer features, apply a proper validation strategy. You train five models. You tune the top performers. And then — you notice something. The scores cluster. Linear, kernel, and ensemble methods all converge to roughly the same number, and no amount of tuning pushes past it.</p>
+  <p>Your first instinct is that something is wrong. You check the code. You try a different encoding. You engineer more features. The number barely moves.</p>
+  <p>At some point you have to ask: what if the ceiling isn't a bug? What if it's the answer?</p>
+  <h2>What convergence across model families actually means</h2>
+  <p>When a linear model, an SVR with an RBF kernel, and a Random Forest all land at approximately the same performance under grouped cross-validation — that's a signal. Not a failure of any individual model, but a statement about the data itself.</p>
+  <p>The models are different enough that if there were learnable nonlinear structure they were missing, they wouldn't agree. The fact that they agree means one of two things: either all the learnable signal has been captured, or the remaining variance is genuinely noise — between-source variability that no model can extract because it's not encoded in the features.</p>
+  <h2>The dataset ceiling vs the model ceiling</h2>
+  <p>There are two different kinds of limits, and conflating them leads to wasted effort.</p>
+  <p>A <i>model ceiling</i> is a limit of a specific algorithm — a linear model can't learn nonlinear relationships, so switching to a tree ensemble raises the ceiling. This is fixable by model selection.</p>
+  <p>A <i>dataset ceiling</i> is the maximum predictable variance given the information available in your features. If the remaining variance is driven by factors not in your dataset — measurement conditions you didn't record, lab-to-lab variability, publication biases in reported values — no model will capture it, because the information simply isn't there. This is not fixable by tuning. It's fixable only by collecting better data.</p>
+  <p>In literature-mined scientific datasets especially, dataset ceilings appear frequently. Different labs use different instruments. Papers report different combinations of measurements. The target variable is measured under conditions that vary in ways your features don't fully describe. The noise floor is real and it's high.</p>
+  <h2>R² is a relative measure</h2>
+  <p>R² measures the fraction of variance in the target that your model explains. An R² of 0.15 means the model explains 15% of the variance — which sounds low. Whether it's a good result or a bad one depends entirely on how much of the variance is <i>explainable in principle</i> given your features.</p>
+  <p>If 70% of your target's variance is between-source noise that your features don't capture, then an explainable ceiling of ~20% means your model is doing well. If 90% of the variance is signal and you're explaining 15%, you have a real problem.</p>
+  <p>The baseline — always predict the training mean, regardless of features — gives you an R² of 0. Any model that doesn't beat this isn't useful. But the distance between your model and the baseline matters less than the distance between your model and the <i>ceiling of what's explainable</i>, which you can only estimate by understanding what your data does and doesn't contain.</p>
+  <h2>What actually moves the ceiling</h2>
+  <p>Not more hyperparameter tuning. Not a fancier architecture. The things that actually raise a dataset ceiling:</p>
+  <p><i>More complete data</i> — filling in the missing measurements that most drove your imputation flags. If surface area is missing in 40% of rows and it's your most important feature, getting those values raises the ceiling directly.</p>
+  <p><i>Better features</i> — not more features, but features that capture variation currently absorbed into noise. Replacing a flat categorical label with a physically grounded descriptor encodes information that was there but not usable.</p>
+  <p><i>More controlled data collection</i> — if between-source variability is the noise floor, studies designed to hold everything constant except the variable you care about are worth more than ten times as many rows from the scattered literature.</p>
+  <p><i>A more specific question</i> — sometimes the question is too broad. "Predict performance across all synthesis methods and electrolytes" is harder than "predict performance for hydrothermal synthesis in KOH." Narrowing the scope can raise the explainable fraction substantially.</p>
+  <h2>The honest result</h2>
+  <p>A modest, stable, well-validated score is more useful than a high score from a leaky pipeline. The first tells you something real about what can be predicted from the information you have. The second tells you how well your pipeline can exploit correlations that don't exist in new data.</p>
+  <p>If you've done the work — proper grouping, no leakage in preprocessing, honest imputation, domain-sensible feature importance — and the model lands at a modest R², that number is the finding. Report it clearly, explain what it means, and state what would need to change to raise it. That's rigorous science.</p>
+  <p>The ceiling isn't failure. It's where honest analysis ends and better data collection begins.</p>
+  <p><i>That's the end of this series. Eight posts from raw data to interpreting why your model plateaued. The pipeline doesn't change much across problems — your data and your domain do. Start there.</i></p>
+  <p><i>#MachineLearning #DataScience #MLFundamentals #ModelInterpretation #Research</i></p>
+
+  <hr>
+  <p style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+    <a class="back" href="feature-importance.html">← Feature Importance: Opening the Black Box</a>
+    
+  </p>
+  <p><a class="back" href="../blog.html">Back to blog index</a></p>
+
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>

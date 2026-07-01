@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ▼▼ EDIT 1 of 3 — post title (also shows in browser tab) ▼▼ -->
+  <title>What Machine Learning Actually Is (1/8) — Tahsin Touheed Ivan</title>
+  <!-- ▲▲ ------------------------------------------------------ ▲▲ -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../images/android-chrome-192x192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#2f5e8a">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+  <style>
+    /* ===== Neutral theme — matches index.html / blog.html ===== */
+    :root {
+      --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --link:#2f5e8a; --rule:#e8e8e8;
+      --accent:#1a1a1a; --accent-soft:#ececec;
+      --teal:#2f5e8a; --teal-soft:#eef4f9; --nav-track:#f1f0ee;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      max-width: 640px; margin: 0 auto; padding: 48px 24px 90px; font-size: 16px;
+    }
+
+    /* ===== Top navigation — centered segmented pill ===== */
+    nav { display:flex; justify-content:center; margin-bottom:40px; }
+    .nav-group {
+      display:inline-flex; flex-wrap:wrap; justify-content:center; gap:2px;
+      background:var(--nav-track); padding:3px; border-radius:10px;
+    }
+    nav a {
+      color:var(--muted); text-decoration:none; font-style:normal;
+      font-size:15px; font-weight:500; letter-spacing:0.01em;
+      padding:7px 16px; border-radius:7px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { color:var(--ink); }
+    nav a.active {
+      background:#ffffff; color:var(--ink);
+      box-shadow:0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    h1 { font-size:26px; font-weight:600; margin:0 0 2px; }
+    a { color: inherit; text-decoration: none; font-style: italic; }
+    nav a, footer a, .back { font-style: normal; }
+    hr { border:none; border-top:1px solid var(--rule); margin:34px 0; }
+    .muted { color:var(--muted); font-size:14px; }
+    .post .meta { color:var(--muted); font-size:14px; margin-bottom:26px; }
+    .post p { margin:0 0 18px; }
+    .back { font-size:14px; color:var(--teal); font-weight:600; }
+    .back:hover { text-decoration:underline; }
+
+    /* ===== Section headings ===== */
+    .post h2 {
+      font-size:19px; font-weight:600; color:var(--accent);
+      margin:38px 0 12px; padding-bottom:6px;
+      border-bottom:1px solid var(--accent-soft);
+    }
+    .post .term { font-weight:600; color:var(--teal); font-style:normal; }
+    .post .kicker { color:var(--teal); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; margin:0 0 8px; }
+
+    /* ===== Drop cap — old-book style first letter ===== */
+    .post p.lead:first-letter {
+      float:left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:64px;
+      line-height:0.72;
+      font-weight:600;
+      color:var(--teal);
+      margin:6px 10px 0 0;
+      padding-top:4px;
+    }
+
+    /* ===== Footer (matches site) ===== */
+    footer {
+      margin-top:60px; padding-top:22px; border-top:1px solid var(--rule);
+      font-size:14px; color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:8px 18px;
+      align-items:center; justify-content:space-between;
+    }
+    footer .social a { color:var(--accent); text-decoration:none; margin-left:16px; font-weight:600; }
+    footer .social a:first-child { margin-left:0; }
+    footer .social a:hover { text-decoration:underline; }
+
+    /* ===== Dark mode ===== */
+    html[data-theme="dark"] {
+      --bg:#12141a; --ink:#e7e8ea; --muted:#9aa1ab; --link:#8aa0b8; --rule:#2a2e37;
+      --accent:#e7e8ea; --accent-soft:#2a2e37;
+      --teal:#8aa0b8; --teal-soft:#1e2732; --nav-track:#1c1f27;
+    }
+    html[data-theme="dark"] nav a.active { background:#2b303b; color:var(--ink); box-shadow:none; }
+    html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
+    html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
+    html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html { transition: background 0.2s ease, color 0.2s ease; }
+
+    /* ===== Day/Dark toggle (top-left) ===== */
+    .theme-toggle {
+      position:fixed; top:16px; left:16px; z-index:50;
+      width:38px; height:38px; border-radius:50%;
+      border:1px solid var(--rule); background:var(--nav-track);
+      color:var(--ink); cursor:pointer; font-size:16px; line-height:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { color:var(--teal); border-color:var(--teal); }
+    .post .figph { background:var(--teal-soft); border:1px dashed var(--rule); border-radius:8px;
+      padding:14px 16px; color:var(--muted); font-size:14px; margin:20px 0; }
+  </style>
+</head>
+<body class="post">
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">🌙</button>
+
+  <nav>
+    <div class="nav-group">
+      <a href="../index.html">About</a>
+      <a href="../research.html">Research</a>
+      <a href="../assets/CV.pdf">CV</a>
+      <a class="active" href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <p class="kicker">ML Fundamentals · Post 4 of 8</p>
+  <h1>Validation: The Concept That Determines Whether Your Results Mean Anything</h1>
+  <p class="meta">Jul 2026</p>
+
+  <p class="lead">This is the post that matters most. Everything in Posts 2 and 3 is about getting your data in shape. This post is about whether the number you get at the end — your model's reported accuracy — actually means what you think it means.</p>
+  <p>It often doesn't.</p>
+  <h2>Start with the basic idea</h2>
+  <p>You train a model on some data. Then you test it on data it hasn't seen. The performance on the unseen data is your estimate of how the model will behave in the real world.</p>
+  <p>The train/test split is how you operationalize this. You hold back a portion of your data before training — typically 20-30% — train on the rest, and evaluate on the held-back portion.</p>
+  <p>This seems straightforward. The complications start when you think carefully about what "unseen" means for your specific dataset.</p>
+  <h2>Why a single split is often not enough</h2>
+  <p>With a single 80/20 split, your performance estimate depends heavily on which 20% ended up in the test set. If those rows happen to be easier or harder than average, your score is biased in that direction. With small datasets, this variance can be large enough to make the number meaningless.</p>
+  <p>Cross-validation solves this by running the evaluation multiple times.</p>
+  <div class="figph">📊 Figure placeholder — k-fold cross-validation diagram — dataset split into 5 blocks, each one serving as test set in turn</div>
+  <p>In k-fold cross-validation, you split the dataset into k equal-sized groups (folds). You train on k-1 folds and test on the remaining one. You repeat this k times, rotating which fold is the test set. You average the scores across all k runs.</p>
+  <p>The result is a more stable performance estimate with a measure of variability (the standard deviation across folds). You also use all your data for both training and testing, at different times — a meaningful advantage when data is limited.</p>
+  <p>Common choices: k=5 or k=10. With very small datasets, Leave-One-Out CV (where k equals the number of rows) is sometimes used — every single row gets a turn as the sole test point.</p>
+  <h2>The part most tutorials skip: structured data requires structured splitting</h2>
+  <p>Standard k-fold shuffles rows randomly before splitting. That's appropriate when rows are truly independent. When they're not, random splitting creates leakage.</p>
+  <p>Consider a dataset built from scientific papers, where multiple rows come from the same publication. Those rows share something beyond chemistry: the same lab setup, the same instrument, the same authors' reporting conventions. A random split will put some rows from Paper A in training and others in test. The model can learn paper-specific patterns and apply them at test time — it's not generalizing to new science, it's recognizing a familiar paper.</p>
+  <p><i>GroupKFold</i> solves this: instead of splitting rows randomly, you split by group. Every row from the same paper stays entirely in training or entirely in test. The model is now evaluated on papers it has genuinely never seen.</p>
+  <div class="figph">📊 Figure placeholder — GroupKFold diagram showing papers as colored blocks kept intact across splits</div>
+  <p>The same logic applies to any dataset with natural groupings: patients in clinical data, buildings in energy data, subjects in psychology experiments. If rows within a group share structure beyond what's captured in the features, your splitting strategy needs to respect those groups.</p>
+  <h2>The practical consequence</h2>
+  <p>The gap between random-split performance and group-split performance is a direct measure of how much leakage you had. In many real research datasets, this gap is substantial — sometimes the difference between a model that looks good and one that actually generalizes.</p>
+  <p>While the train-test split is simple and quick to implement, the performance estimate can be highly dependent on the specific split, leading to high variance in the results. Cross-validation with a k of 5 or 10 addresses the variance problem. GroupKFold addresses the leakage problem. You often need both.</p>
+  <h2>One more type worth knowing: Leave-One-Group-Out (LOGO)</h2>
+  <p>The strictest version of grouped CV: each fold holds out exactly one group (one paper, one patient, one experiment). If you have 55 groups, you run 55 training-test cycles. This is computationally expensive but gives the most honest estimate of generalization — especially useful when you want to ask "how well does this model predict behavior from an entirely new source?"</p>
+  <h2>The takeaway</h2>
+  <p>Choosing a validation strategy isn't a formality. It's a scientific decision about what question you're asking your model to answer.</p>
+  <p>"Can you predict rows similar to what you've seen?" → standard k-fold is fine. "Can you predict genuinely new groups you've never encountered?" → GroupKFold or LOGO.</p>
+  <p>If the answer to the second question is what you need and you're measuring with the first, your reported performance is wrong — in a direction that flatters the model.</p>
+  <p><i>#MachineLearning #DataScience #MLFundamentals #CrossValidation #ModelValidation</i></p>
+
+  <hr>
+  <p style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+    <a class="back" href="preprocessing.html">← Preprocessing: Before the Model Sees Data</a>
+    <a class="back" href="model-lineup.html">The Model Lineup →</a>
+  </p>
+  <p><a class="back" href="../blog.html">Back to blog index</a></p>
+
+  <footer>
+    <span>© 2026 Tahsin Touheed Ivan</span>
+    <span class="social">
+      <a href="https://www.goodreads.com/user/show/128025935-ivan-touheed">Goodreads [Are you a fellow book-geek too?]</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var btn=document.getElementById('themeToggle');
+      function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';
+        btn.textContent=d?'☀':'🌙';
+        btn.setAttribute('aria-label',d?'Switch to day mode':'Switch to dark mode');}
+      sync();
+      btn.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('theme','light');}catch(e){}}
+        else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('theme','dark');}catch(e){}}
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>
