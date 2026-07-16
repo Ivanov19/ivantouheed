@@ -67,6 +67,38 @@
     .entry p { margin:0 0 12px; font-size:15px; line-height:1.62; }
     .entry p:last-child { margin-bottom:0; }
 
+    /* ===== Files & materials (collapsible, sits inside .entry) ===== */
+    .files { margin:20px 0 0; border-top:1px solid var(--rule); padding-top:14px; }
+    .files summary {
+      cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:7px;
+      font-size:13.5px; font-weight:600; color:var(--teal); letter-spacing:0.01em;
+      padding:2px 0; user-select:none;
+    }
+    .files summary::-webkit-details-marker { display:none; }
+    .files summary .chev { transition:transform 0.18s ease; font-size:11px; line-height:1; }
+    .files[open] summary .chev { transform:rotate(90deg); }
+    .files summary:hover { text-decoration:underline; }
+    .files summary:focus-visible { outline:2px solid var(--teal); outline-offset:3px; border-radius:3px; }
+    .file-list { margin:10px 0 0; }
+    .file {
+      display:flex; align-items:center; gap:13px;
+      padding:11px 0; border-top:1px solid var(--rule);
+      font-style:normal; color:inherit;
+    }
+    .file:first-child { border-top:none; }
+    a.file:hover .f-name { color:var(--teal); text-decoration:underline; }
+    .f-icon {
+      flex:none; width:34px; height:34px; border-radius:7px;
+      background:var(--teal-soft); color:var(--teal);
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    .f-icon svg { width:19px; height:19px; display:block; }
+    .f-body { flex:1; min-width:0; }
+    .f-name { display:block; font-size:14.5px; font-weight:600; color:var(--ink); }
+    .f-meta { display:block; font-size:12.5px; color:var(--muted); }
+    .f-go { flex:none; font-size:13px; color:var(--teal); font-weight:600; }
+    .file.pending { opacity:0.6; }
+
     /* ===== Selected projects (supporting — kept concise) ===== */
     .sec-label {
       font-size:12px; text-transform:uppercase; letter-spacing:0.09em;
@@ -177,6 +209,42 @@
         features guide targeted material synthesis, followed by structural characterization
         (BET, XRD, Raman, XPS) and electrochemical testing (CV, GCD, EIS) — closing the loop between
         data-driven prediction and physical material behavior.</p>
+
+      <!-- ===== Files & materials — add/remove <a class="file"> rows here ===== -->
+      <details class="files">
+        <summary><span class="chev">&#9656;</span> Files &amp; materials (2)</summary>
+        <div class="file-list">
+
+          <a class="file" href="assets/research/pre-defense-slides.pdf">
+            <span class="f-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>
+              </svg>
+            </span>
+            <span class="f-body">
+              <span class="f-name">Pre-defense presentation</span>
+              <span class="f-meta">PDF &middot; 4.2 MB &middot; Jul 2026</span>
+            </span>
+            <span class="f-go" aria-hidden="true">&#8599;</span>
+          </a>
+
+          <a class="file" href="assets/research/proposal-report.pdf">
+            <span class="f-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>
+              </svg>
+            </span>
+            <span class="f-body">
+              <span class="f-name">Research proposal report</span>
+              <span class="f-meta">PDF &middot; 1.8 MB &middot; 2026</span>
+            </span>
+            <span class="f-go" aria-hidden="true">&#8599;</span>
+          </a>
+
+        </div>
+      </details>
     </section>
 
     <!-- ===== Selected projects (keep to your 2–3 strongest) ===== -->
