@@ -154,5 +154,17 @@
         s();});
     })();
   </script>
+  <script>
+    // External links and PDFs open in a new tab; internal pages stay put.
+    document.querySelectorAll('a[href]').forEach(function(a){
+      var isExternal = a.hostname && a.hostname !== location.hostname;
+      var isPDF = /\.pdf($|\?)/i.test(a.getAttribute('href') || '');
+      if (isExternal || isPDF) {
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      }
+    });
+  </script>
 </body>
+
 </html>
