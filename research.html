@@ -109,8 +109,10 @@
     .proj .p-name { font-weight:600; color:var(--ink); font-size:15px; }
     .proj .when { color:var(--teal); font-size:12.5px; font-weight:600; white-space:nowrap; }
     .proj .award { color:var(--teal); font-size:12.5px; margin:3px 0 4px; }
+    .proj .award a { color:inherit; }
     .proj .role { color:var(--muted); font-size:13px; font-style:italic; margin:2px 0 4px; }
     .proj .p-desc { color:var(--muted); font-size:14px; line-height:1.55; margin:0; }
+    .proj .p-more { margin:8px 0 0; font-size:14px; }
 
     /* ===== Connect row (project social links) ===== */
     .connect {
@@ -292,6 +294,19 @@
           </a>
         </div>
       </div>
+    </div>
+
+    <div class="proj">
+      <div class="top">
+        <span class="p-name">LC-Based Capacitive MEMS Pressure Microsensor</span>
+        <span class="when">2026</span>
+      </div>
+      <p class="award">Independent project · Python simulation + ML-based inverse design</p>
+      <p class="p-desc">Built an end-to-end Python simulation of a passive, wirelessly-interrogated capacitive MEMS
+        pressure sensor — modelling the full chain from membrane deflection to LC resonance and
+        inductive readout. Trained a neural-network surrogate on 171 simulated geometries (sampled
+        via Latin-Hypercube) and used inverse design to optimise the sensor's geometry.</p>
+      <p class="award"><a href="https://ivanov19.github.io/LC-Based-Capacitive-MEMS-Pressure-Microsensor/">See details →</a></p>
     </div>
 
     <div class="proj">
