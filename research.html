@@ -45,23 +45,101 @@
     }
 
     a { color: inherit; text-decoration: none; font-style: italic; }
-    nav a, footer a, .cv-bar a, .sec-label { font-style: normal; }
+    nav a, footer a, .cv-bar a, .sec-label, .entry .org a { font-style: normal; }
 
-    /* ===== Research interests (under the lab, before the work) — edit keywords here ===== */
-    .interests { margin:14px 0 18px; }
-    .int-label {
-      display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.09em;
-      color:var(--muted); font-weight:600; margin-bottom:9px;
+    /* ===== Research interests — plain line, edit the keywords inline ===== */
+    .interests {
+      margin:12px 0 20px; font-size:14.5px; color:var(--muted); line-height:1.6;
     }
-    .tag {
-      display:inline-block; font-size:12.5px; background:#f1f0ee; color:#444;
-      padding:4px 12px; border-radius:20px; margin:0 7px 7px 0;
+    .interests b { color:var(--ink); font-weight:600; }
+
+    /* ===== Pipeline figure ===== */
+    .figure { margin:22px 0 6px; }
+    .figure .fig-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .figure svg { width:100%; min-width:620px; height:auto; display:block; }
+    .figure figcaption {
+      font-size:13px; color:var(--muted); margin-top:10px; line-height:1.55;
     }
+
+    /* pipeline palette — light */
+    .pipeline {
+      --p-fill:#eef3f8; --p-line:#9db6cc; --p-title:#24506f; --p-sub:#3c6d92;
+      --t-fill:#edf4f0; --t-line:#a0c4b3; --t-title:#235645; --t-sub:#37765f;
+      --c-fill:#f7f0ea; --c-line:#d3b699; --c-title:#6d4a26; --c-sub:#8f6535;
+      --wire:#9aa1ab; --frame:#cfd4da; --frame-text:#1a1a1a;
+      font-family:inherit;
+    }
+    .pipeline .box { stroke-width:1; }
+    .pipeline .p { fill:var(--p-fill); stroke:var(--p-line); }
+    .pipeline .t { fill:var(--t-fill); stroke:var(--t-line); }
+    .pipeline .c { fill:var(--c-fill); stroke:var(--c-line); }
+    .pipeline .pt { fill:var(--p-title); } .pipeline .ps { fill:var(--p-sub); }
+    .pipeline .tt { fill:var(--t-title); } .pipeline .ts { fill:var(--t-sub); }
+    .pipeline .ct { fill:var(--c-title); } .pipeline .cs { fill:var(--c-sub); }
+    .pipeline .ft { fill:var(--frame-text); }
+    .pipeline .wire { stroke:var(--wire); stroke-width:1.5; fill:none; }
+    .pipeline .arrow { fill:var(--wire); }
+    .pipeline .frame { fill:none; stroke:var(--frame); stroke-width:1; }
+    .pipeline .loop-label { fill:var(--wire); }
+    .pipeline text { font-weight:600; }
+    .pipeline .sub { font-weight:400; }
+
+    /* ===== Collaborating labs ===== */
+    .collab { margin:22px 0 0; border-top:1px solid var(--rule); padding-top:15px; }
+    .collab .c-head, .facilities .c-head {
+      font-size:12px; text-transform:uppercase; letter-spacing:0.09em;
+      color:var(--muted); font-weight:600; margin:0 0 11px;
+    }
+    /* ===== Facilities & instrumentation logo strip ===== */
+    .facilities { margin:22px 0 0; border-top:1px solid var(--rule); padding-top:15px; }
+    .fac-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr));
+      gap:14px 12px; align-items:start;
+    }
+    .fac { text-align:center; }
+    .fac .f-mark {
+      height:56px; display:flex; align-items:center; justify-content:center; margin-bottom:8px;
+      background:#ffffff; border:1px solid var(--rule); border-radius:8px; padding:7px;
+    }
+    .fac .f-mark img { max-height:100%; max-width:100%; display:block; }
+    .fac .f-label {
+      display:block; font-size:12px; line-height:1.4; color:var(--muted);
+    }
+    .fac .f-label b { display:block; color:var(--ink); font-weight:600; font-size:12.5px; }
+
+    .collab-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px;
+    }
+    .lab {
+      border:1px solid var(--rule); border-radius:9px; padding:11px 14px;
+      display:flex; align-items:flex-start; gap:12px;
+    }
+    .lab .l-logo {
+      flex:none; width:44px; height:44px; margin-top:2px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:#ffffff; border:1px solid var(--rule); border-radius:7px; padding:5px;
+    }
+    .lab .l-logo img { max-width:100%; max-height:100%; display:block; }
+    .lab .l-text { min-width:0; }
+    .lab a, .fac a { font-style:normal; color:inherit; }
+    .lab .l-name a:hover, .lab .l-pi a:hover { color:var(--teal); text-decoration:underline; }
+    .lab .l-logo a, .fac .f-mark a {
+      display:flex; align-items:center; justify-content:center;
+      width:100%; height:100%;
+    }
+    .lab .l-logo a:hover img, .fac .f-mark a:hover img { opacity:0.75; }
+    .fac .f-label a:hover b { color:var(--teal); text-decoration:underline; }
+    .lab .l-name { display:block; font-size:14px; font-weight:600; color:var(--ink); }
+    .lab .l-pi { display:block; font-size:12.5px; color:var(--muted); margin-top:2px; }
+    .lab .l-pi a { color:inherit; font-style:normal; }
+    .lab .l-pi a:hover { color:var(--teal); text-decoration:underline; }
+    .lab .l-dept { display:block; font-size:12.5px; color:var(--muted); margin-top:1px; }
+    .lab .l-role { display:block; font-size:12.5px; color:var(--teal); margin-top:5px; }
 
     /* ===== Current research (the centerpiece) ===== */
     .entry { margin-bottom:36px; }
     .entry .top { display:flex; justify-content:space-between; align-items:baseline; gap:14px; }
-    .entry .org { font-weight:600; color:var(--ink); font-size:16px; }
+    .entry .org { font-weight:600; color:var(--ink); font-size:26px; letter-spacing:-0.01em; line-height:1.3; }
     .entry .when { color:var(--teal); font-size:13px; font-weight:600; white-space:nowrap; }
     .entry .role { color:var(--muted); font-size:14px; font-style:italic; margin:2px 0 12px; }
     .entry p { margin:0 0 12px; font-size:15px; line-height:1.62; }
@@ -167,6 +245,13 @@
     html[data-theme="dark"] .rail { background:#181b22; border-color:#2a2e37; }
     html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
     html[data-theme="dark"] .cv-bar { background:#181b22; }
+    html[data-theme="dark"] .lab { background:#181b22; }
+    html[data-theme="dark"] .pipeline {
+      --p-fill:#1e2c3a; --p-line:#4a7093; --p-title:#bcd6ec; --p-sub:#93b6d3;
+      --t-fill:#1b2f28; --t-line:#47806b; --t-title:#abd8c5; --t-sub:#83bca4;
+      --c-fill:#332619; --c-line:#8a6a45; --c-title:#e3c6a5; --c-sub:#c0a183;
+      --wire:#727a84; --frame:#3a404a; --frame-text:#e7e8ea;
+    }
     html { transition: background 0.2s ease, color 0.2s ease; }
 
     /* ===== Day/Dark toggle (top-left) ===== */
@@ -199,34 +284,159 @@
     <!-- ===== Current research (centerpiece — starts directly with the lab) ===== -->
     <section class="entry">
       <div class="top">
-        <span class="org"><a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Laboratory (MSRL DU)</a></span>
+        <span class="org"><p style="font-size: 22px;"><a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Laboratory (MSRL DU)</p></a></span>
         <span class="when">Jan 2026 – Present</span>
       </div>
-      <p class="role">Undergraduate Researcher · Supervisor:
+      <p class="role">Undergraduate Research Student · Supervisor:
         <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Dr. Imtiaz Ahmed</a></p>
 
-      <!-- ===== Research interests — add/remove keywords here ===== -->
-      <div class="interests">
-        <span class="int-label">Research interests</span>
-        <span class="tag">Machine learning for materials discovery</span>
-        <span class="tag">Nanomaterials synthesis &amp; characterization</span>
-        <span class="tag">Energy storage materials</span>
-        <span class="tag">Nanoelectronics</span>
-        <span class="tag">Nanophotonics</span>
-        <span class="tag">Micro/nano-engineered devices</span>
-      </div>
+      <!-- ===== Research interests — plain line, edit inline ===== -->
+      <p class="interests"><b>Research Interests</b> — machine learning for materials discovery, energy storage
+        materials, nanomaterials synthesis &amp; characterization, and micro/nano-engineered devices.</p>
 
       <p><b>Current Work — Machine-Learning &amp; DFT-Guided Electrode Design for Oxide-based Supercapacitors: From Data Mining to Experimental Validation.</b>
-        Developing a <i>Computation-guided Closed-Loop Pipeline</i> for design optimization of perovskite-oxide (ABO₃ and
-        A₂BB'O₆) based supercapacitor electrodes. In Stage 1, a literature-mined descriptor dataset — spanning
-        chemistry, structure, synthesis and condition features — feeds ML models that rank compositions
-        by specific capacitance (Csp) and stability, with SHAP/PDP explainability surfacing the dominant
-        drivers. The resulting shortlist is then cross-checked against first-principles DFT (band gap,
-        formation energy, and related stability descriptors).</p>
-      <p>Stage 2 closes the loop experimentally: DFT-confirmed candidates are synthesized — targeting
-        sub-200 nm particles via spray pyrolysis or laser-induced graphene electrode fabrication —
-        structurally characterized (XRD, BET, Raman, XPS), and electrochemically tested (CV, GCD, EIS),
-        with the measured Csp fed back to refine the ML model.</p>
+        Perovskite-oxide electrodes have a design space far too large to search by synthesis alone. We are
+        building a computation-guided closed-loop pipeline that narrows it in stages — cheap, broad screening
+        first, expensive and precise validation last — so that experimental effort is spent only on candidates
+        that have already survived both statistical and first-principles scrutiny.</p>
+
+      <!-- ===== Pipeline figure ===== -->
+      <figure class="figure">
+        <div class="fig-wrap">
+<svg class="pipeline" viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Closed-loop pipeline for supercapacitor electrode design</title>
+<desc>A literature corpus feeds a descriptor space, which trains a ranking model with explainability, followed by a stability screen. Surviving candidates undergo first-principles validation of structural and dynamical stability and of charge-storage descriptors, then synthesis, electrode fabrication and electrochemical testing. Measured performance re-enters the dataset, closing the loop.</desc>
+<defs>
+<marker id="pl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" class="arrow"/>
+</marker>
+</defs>
+
+<rect class="box p" x="40" y="70" width="145" height="54" rx="6"/>
+<text class="pt" x="112.5" y="92" text-anchor="middle" font-size="13">Literature corpus</text>
+<text class="ps sub" x="112.5" y="109" text-anchor="middle" font-size="11">published experiments</text>
+
+<rect class="box p" x="205" y="70" width="145" height="54" rx="6"/>
+<text class="pt" x="277.5" y="92" text-anchor="middle" font-size="13">Descriptor space</text>
+<text class="ps sub" x="277.5" y="109" text-anchor="middle" font-size="11">chemistry · structure · process</text>
+
+<rect class="box p" x="370" y="70" width="145" height="54" rx="6"/>
+<text class="pt" x="442.5" y="92" text-anchor="middle" font-size="13">Ranking model</text>
+<text class="ps sub" x="442.5" y="109" text-anchor="middle" font-size="11">with explainability</text>
+
+<rect class="box p" x="535" y="70" width="145" height="54" rx="6"/>
+<text class="pt" x="607.5" y="92" text-anchor="middle" font-size="13">Stability screen</text>
+<text class="ps sub" x="607.5" y="109" text-anchor="middle" font-size="11">narrows candidates</text>
+
+<path class="wire" d="M185,97 L203,97" marker-end="url(#pl-arrow)"/>
+<path class="wire" d="M350,97 L368,97" marker-end="url(#pl-arrow)"/>
+<path class="wire" d="M515,97 L533,97" marker-end="url(#pl-arrow)"/>
+<path class="wire" d="M607.5,124 L607.5,166" marker-end="url(#pl-arrow)"/>
+
+<rect class="frame" x="40" y="170" width="640" height="92" rx="8"/>
+<text class="ft" x="60" y="192" font-size="13">First-principles DFT validation</text>
+
+<rect class="box t" x="60" y="204" width="290" height="44" rx="6"/>
+<text class="tt" x="205" y="223" text-anchor="middle" font-size="12.5">Structural &amp; dynamical stability</text>
+<text class="ts sub" x="205" y="239" text-anchor="middle" font-size="11">ground state · elastic · phonon</text>
+
+<rect class="box t" x="370" y="204" width="290" height="44" rx="6"/>
+<text class="tt" x="515" y="223" text-anchor="middle" font-size="12.5">Charge-storage descriptors</text>
+<text class="ts sub" x="515" y="239" text-anchor="middle" font-size="11">quantum capacitance · ion adsorption</text>
+
+<path class="wire" d="M360,262 L360,286 L137.5,286 L137.5,306" marker-end="url(#pl-arrow)"/>
+
+<rect class="box c" x="40" y="310" width="195" height="54" rx="6"/>
+<text class="ct" x="137.5" y="332" text-anchor="middle" font-size="13">Synthesis</text>
+<text class="cs sub" x="137.5" y="349" text-anchor="middle" font-size="11">sub-200 nm particles</text>
+
+<rect class="box c" x="265" y="310" width="195" height="54" rx="6"/>
+<text class="ct" x="362.5" y="332" text-anchor="middle" font-size="13">Electrode fabrication</text>
+<text class="cs sub" x="362.5" y="349" text-anchor="middle" font-size="11">spray pyrolysis · LIG</text>
+
+<rect class="box c" x="490" y="310" width="190" height="54" rx="6"/>
+<text class="ct" x="585" y="332" text-anchor="middle" font-size="13">Electrochemical testing</text>
+<text class="cs sub" x="585" y="349" text-anchor="middle" font-size="11">CV · GCD · EIS</text>
+
+<path class="wire" d="M235,337 L263,337" marker-end="url(#pl-arrow)"/>
+<path class="wire" d="M460,337 L488,337" marker-end="url(#pl-arrow)"/>
+
+<path class="wire" d="M585,364 L585,400 L18,400 L18,97 L38,97" stroke-dasharray="5 4" marker-end="url(#pl-arrow)"/>
+<text class="loop-label sub" x="310" y="393" text-anchor="middle" font-size="11">measured performance re-enters the dataset</text>
+</svg>
+        </div>
+        <figcaption>Screening cost rises by going downwards in the flowchart: statistical ranking is cheap and broad, first-principles
+          validation is costly and narrow, and synthesis is costlier still. The dashed return path is what makes
+          the pipeline closed — measured performance becomes training data for the next iteration.</figcaption>
+      </figure>
+
+      <p>Stage 1 is computational. A descriptor dataset mined from the published experimental literature — spanning
+        chemistry, structure, processing and testing conditions — trains a ranking model for specific capacitance,
+        with SHAP and PDP explainability used to surface the physical drivers rather than treat the model as a
+        black box. A stability screen then narrows the shortlist before first-principles work begins, concentrating
+        compute on the candidates most likely to survive it.</p>
+      <p>Stage 2 is experimental. Validated candidates are synthesized toward the nanoscale regime where
+        near-surface Faradaic storage dominates, fabricated into electrodes, structurally characterized and
+        electrochemically tested — and the measured performance returns to the dataset, closing the loop.</p>
+
+      <!-- ===== Collaborating labs — edit entries here ===== -->
+      <div class="collab">
+        <p class="c-head">Collaborating labs</p>
+        <div class="collab-grid">
+                    <div class="lab">
+            <span class="l-logo"><a href="XYZ"><img src="assets/logos/du.png" alt=""></a></span>
+            <span class="l-text">
+              <span class="l-name"><a href="XYZ">Microsystems &amp; Nanoengineering Lab</a></span>
+              <span class="l-pi">PI: <a href="XYZ">Dr. Saeed Mahmud Ullah</a> &middot; <a href="XYZ">Dr. Md. Ahsan Habib</a></span>
+              <span class="l-dept">Dept. of EEE, University of Dhaka</span>
+              <span class="l-role">Electrode fabrication</span>
+            </span>
+          </div>
+          <div class="lab">
+            <span class="l-logo"><a href="XYZ"><img src="assets/logos/buet.svg" alt=""></a></span>
+            <span class="l-text">
+              <span class="l-name"><a href="XYZ">Nanotechnology Research Lab</a></span>
+              <span class="l-pi">PI: <a href="XYZ">Dr. Mohammed Abdul Basith</a></span>
+              <span class="l-dept">Dept. of Physics, BUET</span>
+              <span class="l-role">Supercapattery Characterization</span>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== Facilities & instrumentation — add/remove .fac tiles here ===== -->
+      <div class="facilities">
+        <p class="c-head">Facilities &amp; instrumentation</p>
+        <div class="fac-grid">
+
+          <div class="fac">
+            <span class="f-mark"><a href="XYZ"><img src="assets/logos/strc.png" alt=""></a></span>
+            <span class="f-label"><a href="XYZ"><b>STRC</b>Semiconductor Technology Research Centre, DU</a></span>
+          </div>
+
+          <div class="fac">
+            <span class="f-mark"><a href="XYZ"><img src="assets/logos/cars.png" alt=""></a></span>
+            <span class="f-label"><a href="XYZ"><b>CARS</b>Centre for Advanced Research in Sciences, DU</a></span>
+          </div>
+
+          <div class="fac">
+            <span class="f-mark"><a href="XYZ"><img src="assets/logos/nsml.png" alt=""></a></span>
+            <span class="f-label"><a href="XYZ"><b>Nanophysics &amp; Soft Matter Lab</b>Dept. of Physics, DU</a></span>
+          </div>
+
+          <div class="fac">
+            <span class="f-mark"><a href="XYZ"><img src="assets/logos/baec.svg" alt=""></a></span>
+            <span class="f-label"><a href="XYZ"><b>BAEC</b>Bangladesh Atomic Energy Commission</a></span>
+          </div>
+
+          <div class="fac">
+            <span class="f-mark"><a href="XYZ"><img src="assets/logos/bcsir.png" alt=""></a></span>
+            <span class="f-label"><a href="XYZ"><b>BCSIR</b>Bangladesh Council of Scientific and Industrial Research</a></span>
+          </div>
+
+        </div>
+      </div>
 
       <!-- ===== Files & materials — add/remove <a class="file"> rows here ===== -->
       <details class="files">
@@ -247,7 +457,7 @@
             <span class="f-go" aria-hidden="true">&#8599;</span>
           </a>
 
-          <a class="file" href="assets/research/proposal-report.pdf">
+          <a class="file" href="assets/research/ml-model-validation.pdf">
             <span class="f-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
@@ -255,8 +465,8 @@
               </svg>
             </span>
             <span class="f-body">
-              <span class="f-name">Research proposal report</span>
-              <span class="f-meta">PDF &middot; 1.4 MB &middot; Jul 2026</span>
+              <span class="f-name">A Presentation on our proposed ML approaches &amp; explainability</span>
+              <span class="f-meta">PDF &middot; 2.2 MB &middot; Aug 2026 &middot;</span>
             </span>
             <span class="f-go" aria-hidden="true">&#8599;</span>
           </a>
@@ -266,7 +476,7 @@
     </section>
 
     <!-- ===== Selected projects (keep to your 2–3 strongest) ===== -->
-    <h3 class="sec-label">Selected projects</h3>
+    <h3 class="sec-label">Few Other Undergraduate projects</h3>
 
     <div class="proj">
       <div class="top">
