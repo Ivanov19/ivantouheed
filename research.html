@@ -197,6 +197,20 @@
       margin-top:14px; border-top:1px solid var(--rule); padding-top:12px;
       display:flex; align-items:center; flex-wrap:wrap; gap:8px 14px;
     }
+    /* ===== Inline collaborator logo row (inside a project card) ===== */
+    .p-collab {
+      display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; margin:10px 0 0;
+    }
+    .p-collab .pc-label { font-size:13.5px; color:var(--muted); }
+    .p-collab .pc-marks { display:inline-flex; align-items:center; gap:9px; }
+    .p-collab .pc-mark {
+      height:34px; display:inline-flex; align-items:center; justify-content:center;
+      background:#ffffff; border:1px solid var(--rule); border-radius:6px; padding:4px 7px;
+    }
+    .p-collab .pc-mark img { max-height:100%; max-width:96px; display:block; }
+    .p-collab a { font-style:normal; }
+    .p-collab a:hover .pc-mark { border-color:var(--teal); }
+
     .connect .c-label {
       font-size:14px; color:var(--teal); font-weight:600;
     }
@@ -488,6 +502,15 @@
         urban rooftop plantation water-efficient and low-maintenance — addressing freshwater stress
         and food-resilience in dense cities. Currently directing system design, sensor–actuator
         integration, and field-deployment planning.</p>
+
+      <!-- ===== Collaborators — swap logo files and href values ===== -->
+      <div class="p-collab">
+        <span class="pc-label">In collaboration with</span>
+        <span class="pc-marks">
+          <a href="XYZ" aria-label="Collaborator 1"><span class="pc-mark"><img src="assets/logos/collab1.png" alt=""></span></a>
+          <a href="XYZ" aria-label="Collaborator 2"><span class="pc-mark"><img src="assets/logos/collab2.png" alt=""></span></a>
+        </span>
+      </div>
 
       <!-- ===== Connect row — replace the three href values ===== -->
       <div class="connect">
