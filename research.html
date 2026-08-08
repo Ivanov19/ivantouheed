@@ -145,6 +145,14 @@
     .entry p { margin:0 0 12px; font-size:15px; line-height:1.62; }
     .entry p:last-child { margin-bottom:0; }
 
+    /* ===== Project eyebrow + status chip ===== */
+    .proj-title {
+      font-size:17px; font-weight:600; color:var(--ink);
+      line-height:1.4; margin:0 0 10px;
+    }
+    .proj-status { font-size:14px; color:var(--muted); font-style:italic; margin:0 0 12px; }
+    .proj-divider { height:1px; background:var(--rule); margin:34px 0 26px; border:0; }
+
     /* ===== Files & materials (collapsible, sits inside .entry) ===== */
     .files { margin:20px 0 0; border-top:1px solid var(--rule); padding-top:14px; }
     .files summary {
@@ -305,15 +313,17 @@
         <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Dr. Imtiaz Ahmed</a></p>
 
       <!-- ===== Research interests — plain line, edit inline ===== -->
-      <p class="interests"><b>Research Interests</b> — AI/ML-assisted materials discovery, electrode 
-        design for energy storage devices, nanomaterials synthesis &amp; characterization, Density 
+      <p class="interests"><b>Research Interests</b> — AI/ML-assisted materials discovery, Computational 
+        Materials Engineering, Energy storage devices, Nanomaterials synthesis &amp; characterization, Density 
         Functional Theory; with broader 
-        curiosity in micro/nano-engineered devices.</p>
+        curiosity in Micro/Nano-engineered devices.</p>
 
-      <p><b>Current Work — Machine-Learning &amp; DFT-Guided Electrode Design for Oxide-based Supercapacitors: From Data Mining to Experimental Validation.</b>
-        Perovskite-oxide electrodes have a design space far too large to search by synthesis alone. We are
+      <p class="proj-title">1. Machine-Learning &amp; DFT-Guided Electrode Design for Oxide-based
+        Supercapacitors: From Data Mining to Experimental Validation</p>
+
+      <p>Perovskite-oxide electrodes have a design space far too large to search by synthesis alone. We are
         building a computation-guided closed-loop pipeline that narrows it in stages — cheap, broad screening
-        first, expensive and precise validation last — so that experimental effort is spent only on candidates
+        first, expensive and precise validation last, so that experimental effort is spent only on candidates
         that have already survived both statistical and first-principles scrutiny.</p>
 
       <!-- ===== Pipeline figure ===== -->
@@ -497,6 +507,33 @@
 
         </div>
       </details>
+
+      <hr class="proj-divider">
+
+      <p class="proj-title">2. Data-Guided Optimisation of Manganese&ndash;Vanadium Oxide Battery Performance</p>
+      <p class="proj-status">Currently under planning.</p>
+
+      <p>The lab has spent a long time conducting experiments to improve manganese&ndash;vanadium oxide (Mn&ndash;V&ndash;O) based batteries and has
+        accumulated a substantial experimental record. Improvements have since plateaued, and further gains
+        from intuition alone are increasingly hard-won.</p>
+      <p>We are scoping a data-driven analysis to identify which compositional and processing
+        variables actually govern specific capacity, and guide the next rounds
+        of experiments rather than trial-and-error appraoch.</p>
+
+      <!-- ===== Project 02 collaborator — fill in lab name, dept, links, logo ===== -->
+      <div class="collab">
+        <p class="c-head">Collaborations</p>
+        <div class="collab-grid">
+          <div class="lab">
+            <span class="l-logo"><a href="https://sites.google.com/view/chanchal-kumar-roy/members/dr-chanchal-kumar-roy"><img src="assets/logos/buet.svg" alt=""></a></span>
+            <span class="l-text">
+              <span class="l-name"><a href="https://sites.google.com/view/chanchal-kumar-roy/members/dr-chanchal-kumar-roy">Dr. Chanchal Kumar Roy</a></span>
+              <span class="l-dept">Dept. of Chemistry, BUET </span>
+              <span class="l-role">Dataset support &amp; electrochemical testing</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== Selected projects (keep to your 2–3 strongest) ===== -->
