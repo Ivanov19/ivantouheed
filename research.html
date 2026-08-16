@@ -56,33 +56,29 @@
     /* ===== Pipeline figure ===== */
     .figure { margin:22px 0 6px; }
     .figure .fig-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
-    .figure svg { width:100%; min-width:620px; height:auto; display:block; }
+    .figure svg { width:100%; min-width:660px; height:auto; display:block; }
     .figure figcaption {
       font-size:13px; color:var(--muted); margin-top:10px; line-height:1.55;
     }
 
-    /* pipeline palette — light */
-    .pipeline {
-      --p-fill:#eef3f8; --p-line:#9db6cc; --p-title:#24506f; --p-sub:#3c6d92;
-      --t-fill:#edf4f0; --t-line:#a0c4b3; --t-title:#235645; --t-sub:#37765f;
-      --c-fill:#f7f0ea; --c-line:#d3b699; --c-title:#6d4a26; --c-sub:#8f6535;
-      --wire:#9aa1ab; --frame:#cfd4da; --frame-text:#1a1a1a;
+    /* pipeline figure — light */
+    .fig {
+      --line:#2b2b2b;      /* box + arrow stroke */
+      --frame:#d5d9de;     /* column hairline    */
+      --boxbg:#ffffff;     /* pending box fill   */
       font-family:inherit;
     }
-    .pipeline .box { stroke-width:1; }
-    .pipeline .p { fill:var(--p-fill); stroke:var(--p-line); }
-    .pipeline .t { fill:var(--t-fill); stroke:var(--t-line); }
-    .pipeline .c { fill:var(--c-fill); stroke:var(--c-line); }
-    .pipeline .pt { fill:var(--p-title); } .pipeline .ps { fill:var(--p-sub); }
-    .pipeline .tt { fill:var(--t-title); } .pipeline .ts { fill:var(--t-sub); }
-    .pipeline .ct { fill:var(--c-title); } .pipeline .cs { fill:var(--c-sub); }
-    .pipeline .ft { fill:var(--frame-text); }
-    .pipeline .wire { stroke:var(--wire); stroke-width:1.5; fill:none; }
-    .pipeline .arrow { fill:var(--wire); }
-    .pipeline .frame { fill:none; stroke:var(--frame); stroke-width:1; }
-    .pipeline .loop-label { fill:var(--wire); }
-    .pipeline text { font-weight:600; }
-    .pipeline .sub { font-weight:400; }
+    .fig .box    { fill:var(--boxbg); stroke:var(--line); stroke-width:1; }
+    .fig .done   { fill:var(--teal-soft); stroke:var(--teal); }
+    .fig .band   { fill:none; stroke:var(--frame); stroke-width:1; }
+    .fig .bl     { fill:var(--teal); font-size:10px; letter-spacing:.06em; font-weight:600; }
+    .fig .t      { fill:var(--ink); font-size:11.5px; font-weight:600; }
+    .fig .s      { fill:var(--muted); font-size:10px; }
+    .fig .n      { fill:var(--muted); font-size:9.5px; font-style:italic; }
+    .fig .w      { stroke:var(--line); stroke-width:1.1; fill:none; }
+    .fig .w.loop { stroke:var(--teal); stroke-dasharray:5 4; }
+    .fig .ah     { fill:var(--line); }
+    .fig .aht    { fill:var(--teal); }
 
     /* ===== Collaborating labs ===== */
     .collab { margin:22px 0 0; border-top:1px solid var(--rule); padding-top:15px; }
@@ -271,11 +267,8 @@
     html[data-theme="dark"] span.tag { background:#242832; color:#c7ccd4; }
     html[data-theme="dark"] .cv-bar { background:#181b22; }
     html[data-theme="dark"] .lab { background:#181b22; }
-    html[data-theme="dark"] .pipeline {
-      --p-fill:#1e2c3a; --p-line:#4a7093; --p-title:#bcd6ec; --p-sub:#93b6d3;
-      --t-fill:#1b2f28; --t-line:#47806b; --t-title:#abd8c5; --t-sub:#83bca4;
-      --c-fill:#332619; --c-line:#8a6a45; --c-title:#e3c6a5; --c-sub:#c0a183;
-      --wire:#727a84; --frame:#3a404a; --frame-text:#e7e8ea;
+    html[data-theme="dark"] .fig {
+      --line:#9aa1ab; --frame:#3a404a; --boxbg:#181b22;
     }
     html { transition: background 0.2s ease, color 0.2s ease; }
 
@@ -326,94 +319,102 @@
       <p class="proj-title">1. Machine-Learning &amp; DFT-Guided Electrode Design for Oxide-based
         Supercapacitors: From Data Mining to Experimental Validation [Ongoing work]</p>
 
-      <p>Perovskite-oxide electrodes have a design space far too large to search by synthesis alone. We are
-        building a computation-guided closed-loop pipeline that narrows it in stages — cheap, broad screening
-        first, expensive and precise validation last, so that experimental effort is spent only on candidates
-        that have already survived both statistical and first-principles scrutiny.</p>
+      <p>The compositional space of supercapacitor electrode materials is far too large for trial-and-error
+synthesis to explore meaningfully. Neither route to a validated candidate is cheap: synthesis consumes
+physical resources and laboratory time, while first-principles validation consumes computational
+resources and time of its own. This work instead treats the published literature as a screening asset.
+Restricting attention to perovskite oxides, we mine the existing experimental corpus to rank
+compositions by charge-storage performance and then by stability, applying these inexpensive
+statistical filters before committing to any resource-intensive step. The intent is not predictive
+precision — machine-learned screening at this stage is not accurate enough to select a winner — but
+elimination: discarding the subset that can be confidently ruled out, so that DFT validation and
+synthesis are spent only on the surviving candidates.</p>
 
       <!-- ===== Pipeline figure ===== -->
       <figure class="figure">
         <div class="fig-wrap">
-<svg class="pipeline" viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg" role="img">
-<title>Closed-loop pipeline for supercapacitor electrode design</title>
-<desc>A literature corpus feeds a descriptor space, which trains a ranking model with explainability, followed by a stability screen. Surviving candidates undergo first-principles validation of structural and dynamical stability and of charge-storage descriptors, then synthesis, electrode fabrication and electrochemical testing. Measured performance re-enters the dataset, closing the loop.</desc>
+<svg class="fig" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Staged screening pipeline for perovskite-oxide supercapacitor electrodes</title>
+<desc>Computation runs down the left column &#8212; literature corpus and descriptor set, capacitance ranking, stability screen, first-principles validation &#8212; and hands a shortlist to the right column, where synthesis, electrode fabrication, structural characterisation and electrochemical testing run upward. Measurements re-enter the dataset, closing the loop.</desc>
 <defs>
-<marker id="pl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-<path d="M0,0 L10,5 L0,10 z" class="arrow"/>
-</marker>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" class="ah"/></marker>
+<marker id="ar-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" class="aht"/></marker>
 </defs>
 
-<rect class="box p" x="40" y="70" width="145" height="54" rx="6"/>
-<text class="pt" x="112.5" y="92" text-anchor="middle" font-size="13">Literature corpus</text>
-<text class="ps sub" x="112.5" y="109" text-anchor="middle" font-size="11">published experiments</text>
+<rect class="band" x="20" y="30" width="310" height="290" rx="2"/>
+<text class="bl" x="32" y="48">Stage 1 &#183; computational</text>
+<rect class="band" x="430" y="30" width="270" height="290" rx="2"/>
+<text class="bl" x="442" y="48">Stage 2 &#183; experimental</text>
 
-<rect class="box p" x="205" y="70" width="145" height="54" rx="6"/>
-<text class="pt" x="277.5" y="92" text-anchor="middle" font-size="13">Descriptor space</text>
-<text class="ps sub" x="277.5" y="109" text-anchor="middle" font-size="11">chemistry · structure · process</text>
+<rect class="box done" x="38" y="62" width="274" height="40" rx="2"/>
+<text class="t" x="175" y="80" text-anchor="middle">Literature corpus &#8594; descriptor set</text>
+<text class="s" x="175" y="94" text-anchor="middle">composition &#183; structure &#183; process &#183; test conditions</text>
+<path class="w" d="M175,102V116" marker-end="url(#ar)"/>
 
-<rect class="box p" x="370" y="70" width="145" height="54" rx="6"/>
-<text class="pt" x="442.5" y="92" text-anchor="middle" font-size="13">Ranking model</text>
-<text class="ps sub" x="442.5" y="109" text-anchor="middle" font-size="11">with explainability</text>
+<rect class="box done" x="38" y="118" width="274" height="40" rx="2"/>
+<text class="t" x="175" y="136" text-anchor="middle">Capacitance ranking</text>
+<text class="s" x="175" y="150" text-anchor="middle">classifier ensemble &#183; SHAP</text>
+<path class="w" d="M175,158V172" marker-end="url(#ar)"/>
 
-<rect class="box p" x="535" y="70" width="145" height="54" rx="6"/>
-<text class="pt" x="607.5" y="92" text-anchor="middle" font-size="13">Stability screen</text>
-<text class="ps sub" x="607.5" y="109" text-anchor="middle" font-size="11">narrows candidates</text>
+<rect class="box done" x="38" y="174" width="274" height="40" rx="2"/>
+<text class="t" x="175" y="192" text-anchor="middle">Stability screen</text>
+<text class="s" x="175" y="206" text-anchor="middle">formation energy &#183; P(stable)</text>
+<path class="w" d="M175,214V228" marker-end="url(#ar)"/>
 
-<path class="wire" d="M185,97 L203,97" marker-end="url(#pl-arrow)"/>
-<path class="wire" d="M350,97 L368,97" marker-end="url(#pl-arrow)"/>
-<path class="wire" d="M515,97 L533,97" marker-end="url(#pl-arrow)"/>
-<path class="wire" d="M607.5,124 L607.5,166" marker-end="url(#pl-arrow)"/>
+<rect class="box" x="38" y="230" width="274" height="40" rx="2"/>
+<text class="t" x="175" y="248" text-anchor="middle">First-principles validation</text>
+<text class="s" x="175" y="262" text-anchor="middle">stability &#183; quantum capacitance &#183; adsorption</text>
 
-<rect class="frame" x="40" y="170" width="640" height="92" rx="8"/>
-<text class="ft" x="60" y="192" font-size="13">First-principles DFT validation</text>
+<path class="w" d="M314,250H444" marker-end="url(#ar)"/>
+<text class="n" x="379" y="243" text-anchor="middle">shortlist</text>
 
-<rect class="box t" x="60" y="204" width="290" height="44" rx="6"/>
-<text class="tt" x="205" y="223" text-anchor="middle" font-size="12.5">Structural &amp; dynamical stability</text>
-<text class="ts sub" x="205" y="239" text-anchor="middle" font-size="11">ground state · elastic · phonon</text>
+<rect class="box" x="448" y="230" width="234" height="40" rx="2"/>
+<text class="t" x="565" y="248" text-anchor="middle">Synthesis</text>
+<text class="s" x="565" y="262" text-anchor="middle">sub-200 nm particles</text>
+<path class="w" d="M565,230V216" marker-end="url(#ar)"/>
 
-<rect class="box t" x="370" y="204" width="290" height="44" rx="6"/>
-<text class="tt" x="515" y="223" text-anchor="middle" font-size="12.5">Charge-storage descriptors</text>
-<text class="ts sub" x="515" y="239" text-anchor="middle" font-size="11">quantum capacitance · ion adsorption</text>
+<rect class="box" x="448" y="174" width="234" height="40" rx="2"/>
+<text class="t" x="565" y="192" text-anchor="middle">Electrode fabrication</text>
+<text class="s" x="565" y="206" text-anchor="middle">spray pyrolysis &#183; laser imprinting</text>
+<path class="w" d="M565,174V160" marker-end="url(#ar)"/>
 
-<path class="wire" d="M360,262 L360,286 L137.5,286 L137.5,306" marker-end="url(#pl-arrow)"/>
+<rect class="box" x="448" y="118" width="234" height="40" rx="2"/>
+<text class="t" x="565" y="136" text-anchor="middle">Structural characterisation</text>
+<text class="s" x="565" y="150" text-anchor="middle">XRD &#183; BET &#183; Raman &#183; XPS</text>
+<path class="w" d="M565,118V104" marker-end="url(#ar)"/>
 
-<rect class="box c" x="40" y="310" width="195" height="54" rx="6"/>
-<text class="ct" x="137.5" y="332" text-anchor="middle" font-size="13">Synthesis</text>
-<text class="cs sub" x="137.5" y="349" text-anchor="middle" font-size="11">sub-200 nm particles</text>
+<rect class="box" x="448" y="62" width="234" height="40" rx="2"/>
+<text class="t" x="565" y="80" text-anchor="middle">Electrochemical testing</text>
+<text class="s" x="565" y="94" text-anchor="middle">CV &#183; GCD &#183; EIS</text>
 
-<rect class="box c" x="265" y="310" width="195" height="54" rx="6"/>
-<text class="ct" x="362.5" y="332" text-anchor="middle" font-size="13">Electrode fabrication</text>
-<text class="cs sub" x="362.5" y="349" text-anchor="middle" font-size="11">spray pyrolysis · LIG</text>
-
-<rect class="box c" x="490" y="310" width="190" height="54" rx="6"/>
-<text class="ct" x="585" y="332" text-anchor="middle" font-size="13">Electrochemical testing</text>
-<text class="cs sub" x="585" y="349" text-anchor="middle" font-size="11">CV · GCD · EIS</text>
-
-<path class="wire" d="M235,337 L263,337" marker-end="url(#pl-arrow)"/>
-<path class="wire" d="M460,337 L488,337" marker-end="url(#pl-arrow)"/>
-
-<path class="wire" d="M585,364 L585,400 L18,400 L18,97 L38,97" stroke-dasharray="5 4" marker-end="url(#pl-arrow)"/>
-<text class="loop-label sub" x="310" y="393" text-anchor="middle" font-size="11">measured performance re-enters the dataset</text>
+<path class="w loop" d="M446,82H316" marker-end="url(#ar-t)"/>
+<text class="n" x="381" y="98" text-anchor="middle">measurements re-enter</text>
+<text class="n" x="381" y="111" text-anchor="middle">the dataset</text>
 </svg>
         </div>
-        <figcaption>Screening cost rises by going downwards in the flowchart: statistical ranking is cheap and broad, first-principles
-          validation is costly and narrow, and synthesis is costlier still. The dashed return path is what makes
-          the pipeline closed — measured performance becomes training data for the next iteration.</figcaption>
+        <figcaption>Cost per candidate rises along the path: statistical ranking is cheap and broad,
+          first-principles validation is costly and narrow, and synthesis costlier still. Computation runs
+          down the left column, experiment back up the right, and the dashed return closes the loop &mdash;
+          measured performance becomes training data for the next iteration.</figcaption>
       </figure>
 
-      <p>Stage 1 is computational. A descriptor dataset mined from the published experimental literature — spanning
-        chemistry, structure, processing and testing conditions — trains a ranking model for specific capacitance,
-        with SHAP and PDP explainability used to surface the physical drivers rather than treat the model as a
-        black box. A stability screen then narrows the shortlist before first-principles work begins, concentrating
-        compute on the candidates most likely to survive it.</p>
-      <p>Stage 2 is experimental. Validated candidates are synthesized toward the nanoscale regime where
-        near-surface Faradaic storage dominates, fabricated into electrodes, structurally characterized and
-        electrochemically tested — and the measured performance returns to the dataset, closing the loop.</p>
-      <p>The longer-term aim is generality. The whole architecture is not designed only for supercapacitors specifically. 
-        We have instantiated it for single-perovskite ABO₃ electrodes because that is where our screening and 
-        characterization capacity lies, but the same structure applies to any property or application anywhere. 
-        Also, given the synthesis and characterization can themselves be automated, the loop can even be closed without any human intervention 
-        at all; directing towards a self-driving lab possibility!</p>
+<p>The <i>first stage</i> is computational. A descriptor dataset is assembled from the published experimental
+   literature, with a feature space spanning chemistry, structure, synthesis route and testing conditions.
+   This dataset trains a machine-learning model that ranks candidate compositions by supercapacitive
+   performance, while SHAP and partial-dependence analyses expose the physical drivers underlying those
+   rankings rather than leaving the model opaque. A second model screens the shortlist for stability,
+   so that first-principles validation is directed only at candidates likely to survive it.</p>
+
+<p>The <i>second stage</i> is experimental. Candidates that clear computational validation are synthesized toward
+   the nanoscale regime in which near-surface Faradaic storage dominates, fabricated into electrodes, and
+   assessed by structural characterization and electrochemical testing. The resulting measurements are
+   returned to the dataset, closing the loop and refining subsequent rounds of screening.</p>
+
+<p>The longer-term aim is generality. The architecture is not specific to supercapacitors; it has been
+   instantiated for single-perovskite ABO₃ electrodes because that is where our screening and
+   characterization capacity currently lies, but the same structure extends to other properties and
+   applications. Where synthesis and characterization can themselves be automated, the loop closes without
+   human intervention, even pointing toward a self-driving laboratory!</p>
 
       <p>I have another work (a personal project; aimed at a much smaller scale) that simulates a similar self-driving design automation architecture for a MEMS Pressure Microsensor Device, 
         if you feel interested you can check <a href="https://ivanov19.github.io/LC-Based-Capacitive-MEMS-Pressure-Microsensor/">here.</a></p>
