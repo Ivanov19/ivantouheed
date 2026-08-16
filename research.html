@@ -305,13 +305,13 @@
         <span class="org"><p style="font-size: 22px;"><a href="https://sites.google.com/view/m-s-r-l/home">Materials Science Research Laboratory (MSRL DU)</p></a></span>
         <span class="when">Jan 2026 – Present</span>
       </div>
-      <p class="role">Undergraduate Research Student · Supervisor:
+      <p class="role">Undergraduate Research Assistant · Supervisor:
         <a href="https://scholar.google.com/citations?user=9V5PThgAAAAJ">Dr. Imtiaz Ahmed</a></p>
 
       <!-- ===== Research interests — plain line, edit inline ===== -->
-      <p class="interests"><b>Research Interests</b> — AI/ML-assisted materials discovery, Computational Materials Engineering,
-        Energy storage devices, Nanomaterials synthesis &amp; characterization, Density 
-        Functional Theory; with broader 
+      <p class="interests"><b>Research Interests</b> — AI/ML-assisted materials discovery, 
+        Computational Materials Engineering, Energy storage devices, Nanomaterials synthesis 
+        &amp; characterization, Density Functional Theory; with broader 
         curiosity in Micro/Nano-engineered devices.</p>
 
       <p class="works-head" style="font-size: 20px;">Current works:</p>
@@ -320,15 +320,14 @@
         Supercapacitors: From Data Mining to Experimental Validation [Ongoing work]</p>
 
       <p>The compositional space of supercapacitor electrode materials is far too large for trial-and-error
-synthesis to explore meaningfully. Neither route to a validated candidate is cheap: synthesis consumes
+synthesis to explore meaningfully. None of the conventional routes leading to a candidate validation comes cheap; synthesis consumes
 physical resources and laboratory time, while first-principles validation consumes computational
-resources and time of its own. This work instead treats the published literature as a screening asset.
-Restricting attention to perovskite oxides, we mine the existing experimental corpus to rank
-compositions by charge-storage performance and then by stability, applying these inexpensive
-statistical filters before committing to any resource-intensive step. The intent is not predictive
-precision — machine-learned screening at this stage is not accurate enough to select a winner — but
-elimination: discarding the subset that can be confidently ruled out, so that DFT validation and
-synthesis are spent only on the surviving candidates.</p>
+resources and time of its own. This work, instead, proposes a pipeline where published literature data-space is utilised as a screening asset 
+to prepare machine-learning based predictive models that perform as inexpensive statistical filters before committing to 
+any resource-intensive step. The intention behind the statistical screening stages is simply to confidently eliminate the subsets of the huge 
+available material-space, so that DFT validation and synthesis are spent only on the <i>most promising</i> candidates.</p>
+
+
 
       <!-- ===== Pipeline figure ===== -->
       <figure class="figure">
@@ -347,29 +346,29 @@ synthesis are spent only on the surviving candidates.</p>
 <text class="bl" x="442" y="48">Stage 2 &#183; experimental</text>
 
 <rect class="box done" x="38" y="62" width="274" height="40" rx="2"/>
-<text class="t" x="175" y="80" text-anchor="middle">Literature corpus &#8594; descriptor set</text>
+<text class="t" x="175" y="80" text-anchor="middle">Published Literature &#8594; Initial Dataset</text>
 <text class="s" x="175" y="94" text-anchor="middle">composition &#183; structure &#183; process &#183; test conditions</text>
 <path class="w" d="M175,102V116" marker-end="url(#ar)"/>
 
 <rect class="box done" x="38" y="118" width="274" height="40" rx="2"/>
-<text class="t" x="175" y="136" text-anchor="middle">Capacitance ranking</text>
-<text class="s" x="175" y="150" text-anchor="middle">classifier ensemble &#183; SHAP</text>
+<text class="t" x="175" y="136" text-anchor="middle">Ranking Model</text>
+<text class="s" x="175" y="150" text-anchor="middle">based on supercapattery </text>
 <path class="w" d="M175,158V172" marker-end="url(#ar)"/>
 
 <rect class="box done" x="38" y="174" width="274" height="40" rx="2"/>
-<text class="t" x="175" y="192" text-anchor="middle">Stability screen</text>
-<text class="s" x="175" y="206" text-anchor="middle">formation energy &#183; P(stable)</text>
+<text class="t" x="175" y="192" text-anchor="middle">Stability screening</text>
+<text class="s" x="175" y="206" text-anchor="middle">utilising data on formation energy &amp; bandgap</text>
 <path class="w" d="M175,214V228" marker-end="url(#ar)"/>
 
 <rect class="box" x="38" y="230" width="274" height="40" rx="2"/>
-<text class="t" x="175" y="248" text-anchor="middle">First-principles validation</text>
-<text class="s" x="175" y="262" text-anchor="middle">stability &#183; quantum capacitance &#183; adsorption</text>
+<text class="t" x="175" y="248" text-anchor="middle">First-principles DFT validation</text>
+<text class="s" x="175" y="262" text-anchor="middle">stability &#183; quantum capacitance &#183; surface charge storage</text>
 
 <path class="w" d="M314,250H444" marker-end="url(#ar)"/>
-<text class="n" x="379" y="243" text-anchor="middle">shortlist</text>
+<text class="n" x="379" y="243" text-anchor="middle">screened candidate grid</text>
 
 <rect class="box" x="448" y="230" width="234" height="40" rx="2"/>
-<text class="t" x="565" y="248" text-anchor="middle">Synthesis</text>
+<text class="t" x="565" y="248" text-anchor="middle">Targeted Synthesis</text>
 <text class="s" x="565" y="262" text-anchor="middle">sub-200 nm particles</text>
 <path class="w" d="M565,230V216" marker-end="url(#ar)"/>
 
@@ -380,7 +379,7 @@ synthesis are spent only on the surviving candidates.</p>
 
 <rect class="box" x="448" y="118" width="234" height="40" rx="2"/>
 <text class="t" x="565" y="136" text-anchor="middle">Structural characterisation</text>
-<text class="s" x="565" y="150" text-anchor="middle">XRD &#183; BET &#183; Raman &#183; XPS</text>
+<text class="s" x="565" y="150" text-anchor="middle">XRD, BET, Raman, FTIR, XPS etc</text>
 <path class="w" d="M565,118V104" marker-end="url(#ar)"/>
 
 <rect class="box" x="448" y="62" width="234" height="40" rx="2"/>
@@ -398,23 +397,23 @@ synthesis are spent only on the surviving candidates.</p>
           measured performance becomes training data for the next iteration.</figcaption>
       </figure>
 
-<p>The <i>first stage</i> is computational. A descriptor dataset is assembled from the published experimental
-   literature, with a feature space spanning chemistry, structure, synthesis route and testing conditions.
+<p>The <i>first stage</i> is computational. A descriptor dataset is prepared from the existing experimental
+   literatures, with a feature space spanning chemistry, structure, synthesis route and testing conditions.
    This dataset trains a machine-learning model that ranks candidate compositions by supercapacitive
    performance, while SHAP and partial-dependence analyses expose the physical drivers underlying those
    rankings rather than leaving the model opaque. A second model screens the shortlist for stability,
    so that first-principles validation is directed only at candidates likely to survive it.</p>
 
-<p>The <i>second stage</i> is experimental. Candidates that clear computational validation are synthesized toward
+<p>The <i>second stage</i> is experimental. Selected candidates surviving computational validation are synthesized toward
    the nanoscale regime in which near-surface Faradaic storage dominates, fabricated into electrodes, and
-   assessed by structural characterization and electrochemical testing. The resulting measurements are
-   returned to the dataset, closing the loop and refining subsequent rounds of screening.</p>
+   assessed through structural and electrochemical characterizations. The resulting measurements are
+   returned to the dataset, closing the loop and refining subsequent rounds of screening. The whole pipeline is, as we call, "A Computation-guided Closed Loop Pipeline".</p>
 
-<p>The longer-term aim is generality. The architecture is not specific to supercapacitors; it has been
-   instantiated for single-perovskite ABO₃ electrodes because that is where our screening and
+<p>The long-term aim of this project is generality. The architecture is not specifically restricted to supercapacitors; it has been
+   instantiated for ABO₃ perovskite materials because that is where our screening and
    characterization capacity currently lies, but the same structure extends to other properties and
-   applications. Where synthesis and characterization can themselves be automated, the loop closes without
-   human intervention, even pointing toward a self-driving laboratory!</p>
+   applications. Given synthesis and characterization can themselves be automated, the loop closes without even any
+   human intervention, pointing toward a self-driving laboratory!</p>
 
       <p>I have another work (a personal project; aimed at a much smaller scale) that simulates a similar self-driving design automation architecture for a MEMS Pressure Microsensor Device, 
         if you feel interested you can check <a href="https://ivanov19.github.io/LC-Based-Capacitive-MEMS-Pressure-Microsensor/">here.</a></p>
